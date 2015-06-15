@@ -14,7 +14,7 @@ import com.diplomska.emed.martin.e_medicine.R;
  */
 public class SplashScreen extends Activity {
 
-    private static int TIME_OUT=2500;
+    private static int TIME_OUT=2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
