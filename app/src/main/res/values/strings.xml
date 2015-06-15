@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">E-Medicine</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="splash_sc">Splash Screen</string>
     <string name="action_settings">Settings</string>
+    <string name="example_text">Some simple text</string>
 </resources>
