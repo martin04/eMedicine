@@ -1,9 +1,11 @@
 package com.diplomska.emed.martin.e_medicine;
 
 
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -39,12 +41,30 @@ public class MainActivity extends ActionBarActivity {
 
         int id = item.getItemId();
 
-
-        if (id == R.id.action_settings ) {
+        if (id == R.id.action_alarms ) {
             return true;
         }
 
+        if(id == R.id.action_about){
+            showAbout();
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //funkcija za kreiranje na dijalog prozorecot za About
+    private void showAbout(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle(R.string.about_title);
+        builder.setMessage(R.string.about_message);
+        builder.setCancelable(true);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create();
+        builder.show();
     }
 }

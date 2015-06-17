@@ -13,4 +13,13 @@
     <string name="menu_search">Search</string>
     <string name="search_result">Search result</string>
 
+    <!-- about dialog strings -->
+    <string name="about_title">E-Medicine</string>
+    <string name="about_message">
+        Medical app that will give you information on contraindications and advise You what to consume or not.
+        The information is taken from real data sets containing information about drugs, contraindications and advises.
+        Take in mind that this is only INFORMATION not a total diagnosis or some medical advise.
+        Consult your doctor about everything!
+    </string>
+
 </resources>
