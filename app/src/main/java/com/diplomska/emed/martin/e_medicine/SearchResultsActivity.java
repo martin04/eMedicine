@@ -2,11 +2,11 @@ package com.diplomska.emed.martin.e_medicine;
 
 
 import android.app.SearchManager;
-import android.content.ComponentName;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
@@ -21,6 +21,7 @@ public class SearchResultsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+
         getSupportActionBar().setTitle(R.string.search_result);
         handleIntent(getIntent());
     }
