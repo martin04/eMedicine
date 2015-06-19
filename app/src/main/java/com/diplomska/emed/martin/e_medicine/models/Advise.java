@@ -14,9 +14,8 @@ public class Advise implements Parcelable {
 
     public Advise() { }
 
-    public Advise(Long id, Drug drug, String advise) {
+    public Advise(Drug drug, String advise) {
         super();
-        this.id = id;
         this.drug = drug;
         this.advise = advise;
     }

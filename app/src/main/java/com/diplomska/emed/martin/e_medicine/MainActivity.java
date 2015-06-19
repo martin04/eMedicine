@@ -14,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.diplomska.emed.martin.e_medicine.task.LoadDBTask;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -21,6 +23,9 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        LoadDBTask load=new LoadDBTask(MainActivity.this);
+        load.execute();
     }
 
     @Override

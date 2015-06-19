@@ -9,23 +9,25 @@ import java.lang.reflect.ParameterizedType;
 /**
  * Created by Martin on 18-Jun-15.
  */
-public class Contraindication implements Parcelable{
+public class Contraindication implements Parcelable {
 
     private Long id;
     private Drug drug;
     private String contraindication;
 
-    public Contraindication(){}
-    public Contraindication(Long id,Drug drug,String contraindication){
-        super();
-        this.id=id;
-        this.drug=drug;
-        this.contraindication=contraindication;
+    public Contraindication() {
     }
-    public Contraindication(Parcel in){
+
+    public Contraindication(Drug drug, String contraindication) {
         super();
-        this.id=in.readLong();
-        this.drug=in.readParcelable(Drug.class.getClassLoader());
+        this.drug = drug;
+        this.contraindication = contraindication;
+    }
+
+    public Contraindication(Parcel in) {
+        super();
+        this.id = in.readLong();
+        this.drug = in.readParcelable(Drug.class.getClassLoader());
     }
 
     public Long getId() {
@@ -64,7 +66,7 @@ public class Contraindication implements Parcelable{
         dest.writeString(getContraindication());
     }
 
-    public static final Parcelable.Creator<Contraindication> CREATOR = new Parcelable.Creator<Contraindication>(){
+    public static final Parcelable.Creator<Contraindication> CREATOR = new Parcelable.Creator<Contraindication>() {
         @Override
         public Contraindication createFromParcel(Parcel source) {
             return new Contraindication(source);

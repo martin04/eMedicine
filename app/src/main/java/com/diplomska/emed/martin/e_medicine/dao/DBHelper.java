@@ -11,7 +11,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     //database name and version
     public static final String DATABASE_NAME = "emed.db";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     //table Drug
     public static final String TABLE_DRUGS = "drugs";
@@ -34,17 +34,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     //creating table DRUGS
-    static final String createDrugs = String.format("create %s(%s integer primary key autoincrement," +
-                    "%s text not null, %s text not null, %s text not null);", TABLE_DRUGS, COLUMN_DRUG_ID,
+    static final String createDrugs = String.format("create table %s(%s integer primary key autoincrement, " +
+                    "%s text not null unique, %s text not null, %s text not null);", TABLE_DRUGS, COLUMN_DRUG_ID,
             COLUMN_CODE, COLUMN_LATIN_NAME, COLUMN_GENERIC_NAME);
 
     //creatig table CONTRAIND.
-    static final String createContra = String.format("create %s(%s integer primary key autoincrement," +
+    static final String createContra = String.format("create table %s(%s integer primary key autoincrement, " +
                     "%s text not null, %s text not null, foreign key(%s) references %s(%s));", TABLE_CONTRAINDICATIONS, COLUMN_CONTRA_ID,
             COLUMN_DRUG_CODE, COLUMN_CONTRAINDICATION, COLUMN_DRUG_CODE, TABLE_DRUGS, COLUMN_CODE);
 
     //creating table ADVISES
-    static final String createAdvise = String.format("create %s(%s integer primary key autoincrement," +
+    static final String createAdvise = String.format("create table %s(%s integer primary key autoincrement, " +
                     "%s text not null, %s text not null, foreign key(%s) references %s(%s));", TABLE_ADVISES, COLUMN_ADVISE_ID,
             COLUMN_D_CODE, COLUMN_ADVISE, COLUMN_DRUG_CODE, TABLE_DRUGS, COLUMN_CODE);
 
