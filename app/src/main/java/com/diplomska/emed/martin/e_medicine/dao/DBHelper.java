@@ -10,8 +10,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
 
     //database name and version
-    public static final String DATABASE_NAME = "emed.db";
-    public static final int DATABASE_VERSION = 2;
+    public static final String DATABASE_NAME = "emedicine.db";
+    public static final int DATABASE_VERSION = 1;
 
     //table Drug
     public static final String TABLE_DRUGS = "drugs";
@@ -48,15 +48,15 @@ public class DBHelper extends SQLiteOpenHelper {
                     "%s text not null, %s text not null, foreign key(%s) references %s(%s));", TABLE_ADVISES, COLUMN_ADVISE_ID,
             COLUMN_D_CODE, COLUMN_ADVISE, COLUMN_DRUG_CODE, TABLE_DRUGS, COLUMN_CODE);
 
-    public DBHelper(Context ctx){
-        super(ctx,String.format(DATABASE_NAME),null,DATABASE_VERSION);
+    public DBHelper(Context ctx) {
+        super(ctx, String.format(DATABASE_NAME), null, DATABASE_VERSION);
     }
 
     //potreben metod koj se povikuva po otvoranje na bazata i se koristi za podesuvanje na osnovni raboti na bazata
     @Override
     public void onOpen(SQLiteDatabase db) {
         super.onOpen(db);
-        if(!db.isReadOnly()){
+        if (!db.isReadOnly()) {
             //za da ovozmozime poddrska za nadvoresni klucevi
             db.execSQL("PRAGMA foreign_keys=ON;");
         }
@@ -71,9 +71,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(String.format("DROP TABLE IF EXISTS %s",TABLE_DRUGS));
-        db.execSQL(String.format("DROP TABLE IF EXISTS %s",TABLE_CONTRAINDICATIONS));
-        db.execSQL(String.format("DROP TABLE IF EXISTS %s",TABLE_ADVISES));
+        db.execSQL(String.format("DROP TABLE IF EXISTS %s", TABLE_DRUGS));
+        db.execSQL(String.format("DROP TABLE IF EXISTS %s", TABLE_CONTRAINDICATIONS));
+        db.execSQL(String.format("DROP TABLE IF EXISTS %s", TABLE_ADVISES));
         onCreate(db);
     }
 }
