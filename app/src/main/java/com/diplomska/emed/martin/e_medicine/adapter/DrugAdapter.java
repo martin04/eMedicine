@@ -99,29 +99,43 @@ public class DrugAdapter {
     public Drug getDrug(long id) {
         Drug d = new Drug();
         Cursor c = db.query(DBHelper.TABLE_DRUGS, columns, DBHelper.COLUMN_DRUG_ID + "=" + id, null, null, null, null);
-        try{
-            if(c.moveToFirst()){
+        try {
+            if (c.moveToFirst()) {
                 d.setId(c.getLong(c.getColumnIndex(DBHelper.COLUMN_DRUG_ID)));
                 d.setCode(c.getString(c.getColumnIndex(DBHelper.COLUMN_CODE)));
                 d.setLatin_name(c.getString(c.getColumnIndex(DBHelper.COLUMN_LATIN_NAME)));
                 d.setGeneric_name(c.getString(c.getColumnIndex(DBHelper.COLUMN_GENERIC_NAME)));
 
                 return d;
-            }
-            else{
+            } else {
                 return null;
             }
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
             return null;
-        }finally {
+        } finally {
             c.close();
         }
     }
 
     //zemanje po ime, kade sovpagjanjeto na imeto treba da bide parcijalno!
-    public List<Drug> getDrugByGenName(String generic){
-        return null;
+    public List<Drug> getDrugByGenName(String generic) {
+        List<Drug> result = new ArrayList<Drug>();
+        Drug d=new Drug();
+
+        Cursor c = db.rawQuery("select " + DBHelper.COLUMN_CODE + " " + DBHelper.COLUMN_GENERIC_NAME + " from " +
+                DBHelper.TABLE_DRUGS + " where "+DBHelper.COLUMN_GENERIC_NAME+" like '%"+generic+"%'", null);
+
+        if(c.moveToFirst()){
+            do{
+                d.setCode(c.getString(c.getColumnIndex(DBHelper.COLUMN_CODE)));
+                d.setGeneric_name(c.getString(c.getColumnIndex(DBHelper.COLUMN_GENERIC_NAME)));
+                result.add(d);
+            }while(c.moveToNext());
+        }
+
+        c.close();
+        return result;
     }
 
 

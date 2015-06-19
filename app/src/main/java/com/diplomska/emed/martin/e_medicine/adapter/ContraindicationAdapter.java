@@ -2,6 +2,7 @@ package com.diplomska.emed.martin.e_medicine.adapter;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.diplomska.emed.martin.e_medicine.dao.DBHelper;
@@ -71,5 +72,16 @@ public class ContraindicationAdapter {
     }
 
     //metoda za zemanje po lek t.e. po drug code
+    public String getContraByDrugCode(String code) {
+        String result = "";
+        Cursor c = db.query(DBHelper.TABLE_CONTRAINDICATIONS, columns, DBHelper.COLUMN_DRUG_CODE + "=" + code, null, null, null, null);
 
+        if (c.moveToFirst()) {
+            do {
+                result += c.getString(c.getColumnIndex(DBHelper.COLUMN_CONTRAINDICATION)) + ".\n";
+            } while (c.moveToNext());
+        }
+        c.close();
+        return result;
+    }
 }
