@@ -10,8 +10,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
 
     //database name and version
-    public static final String DATABASE_NAME = "emedicine.db";
-    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "emedicine";
+    public static final int DATABASE_VERSION = 4;
 
     //table Drug
     public static final String TABLE_DRUGS = "drugs";

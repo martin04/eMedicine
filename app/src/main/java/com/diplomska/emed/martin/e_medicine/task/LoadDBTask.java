@@ -13,6 +13,8 @@ import com.diplomska.emed.martin.e_medicine.models.Advise;
 import com.diplomska.emed.martin.e_medicine.models.Contraindication;
 import com.diplomska.emed.martin.e_medicine.models.Drug;
 
+import java.util.List;
+
 
 /**
  * Created by Martin on 19-Jun-15.
@@ -41,6 +43,29 @@ public class LoadDBTask extends AsyncTask<Void, Void, Boolean> {
         Drug d2 = new Drug("DB002", "Vitamin C", "ascorbic acid");
         Drug d3 = new Drug("DB003", "Brufen", "ibuprofen");
         Drug d4 = new Drug("DB004", "Diazepam", "diazepam");
+
+        Contraindication c1 = new Contraindication(d1, "Hypersensitivity to paracetamol or any constituent component of the drug");
+        Contraindication c2 = new Contraindication(d2, "Hypersensitivity to any ingredient of the drug");
+        Contraindication c31 = new Contraindication(d3, "Patients with active peptic ulcer");
+        Contraindication c32 = new Contraindication(d3, "Patients in pregnancy and lactation");
+        Contraindication c33 = new Contraindication(d3, "Patients with known hypersensitivity to NSAIDs");
+        Contraindication c41 = new Contraindication(d4, "Known hypersensitivity to benzodiazepines and any other ingredient of the drug");
+        Contraindication c42 = new Contraindication(d4, "Phobic or obsessional states; chronic psychoses (may appear paradoxical reactions)");
+        Contraindication c43 = new Contraindication(d4, "Acute pulmonary insufficiency; respiratory depression (can worsen ventilatory failure)");
+        Contraindication c44 = new Contraindication(d4, "Myasthenia gravis (condition may deteriorate)");
+        Contraindication c45 = new Contraindication(d4, "\"Sleep apnea\" syndrome (condition may deteriorate)");
+        Contraindication c46 = new Contraindication(d4, "Severe hepatic insufficiency (elimination half-life of diazepam can be continued)");
+        Contraindication c47 = new Contraindication(d4, "Acute porphyria");
+        Contraindication c48 = new Contraindication(d4, "Diazepam should not be used as monotherapy in patients with depression or those with anxiety and depression, because in such patients can cause suicide");
+
+        Advise a11 = new Advise(d1, "You should drink warm tea");
+        Advise a12 = new Advise(d1, "Drink lot of juice");
+        Advise a2 = new Advise(d2, "Consider drinking tea, juice, yoghurt, water");
+        Advise a31 = new Advise(d3, "Consider taking after a meal");
+        Advise a32 = new Advise(d3, "Drink lots of fluids (water, juice, etc)");
+        Advise a41 = new Advise(d4, "Avoid driving");
+        Advise a42 = new Advise(d4, "Do not drink alcohol");
+
         try {
             drug.open();
             drug.insert(d1);
@@ -50,35 +75,35 @@ public class LoadDBTask extends AsyncTask<Void, Void, Boolean> {
             drug.close();
 
             contra.open();
-            contra.insert(new Contraindication(d1, "Hypersensitivity to paracetamol or any constituent component of the drug"));
+            contra.insert(c1);
 
-            contra.insert(new Contraindication(d2, "Hypersensitivity to any ingredient of the drug"));
+            contra.insert(c2);
 
-            contra.insert(new Contraindication(d3, "Patients with active peptic ulcer"));
-            contra.insert(new Contraindication(d3, "Patients in pregnancy and lactation"));
-            contra.insert(new Contraindication(d3, "Patients with known hypersensitivity to NSAIDs"));
+            contra.insert(c31);
+            contra.insert(c32);
+            contra.insert(c33);
 
-            contra.insert(new Contraindication(d4, "Known hypersensitivity to benzodiazepines and any other ingredient of the drug"));
-            contra.insert(new Contraindication(d4, "Phobic or obsessional states; chronic psychoses (may appear paradoxical reactions)"));
-            contra.insert(new Contraindication(d4, "Acute pulmonary insufficiency; respiratory depression (can worsen ventilatory failure)"));
-            contra.insert(new Contraindication(d4, "Myasthenia gravis (condition may deteriorate)"));
-            contra.insert(new Contraindication(d4, "\"Sleep apnea\" syndrome (condition may deteriorate)"));
-            contra.insert(new Contraindication(d4, "Severe hepatic insufficiency (elimination half-life of diazepam can be continued)"));
-            contra.insert(new Contraindication(d4, "Acute porphyria"));
-            contra.insert(new Contraindication(d4, "Diazepam should not be used as monotherapy in patients with depression or those with anxiety and depression, because in such patients can cause suicide"));
+            contra.insert(c41);
+            contra.insert(c42);
+            contra.insert(c43);
+            contra.insert(c44);
+            contra.insert(c45);
+            contra.insert(c46);
+            contra.insert(c47);
+            contra.insert(c48);
             contra.close();
 
             advise.open();
-            advise.insert(new Advise(d1, "You should drink warm tea"));
-            advise.insert(new Advise(d1, "Drink lot of juice"));
+            advise.insert(a11);
+            advise.insert(a12);
 
-            advise.insert(new Advise(d2, "Consider drinking tea, juice, yoghurt, water"));
+            advise.insert(a2);
 
-            advise.insert(new Advise(d3, "Consider taking after a meal"));
-            advise.insert(new Advise(d3, "Drink lots of fluids (water, juice, etc)"));
+            advise.insert(a31);
+            advise.insert(a32);
 
-            advise.insert(new Advise(d4, "Avoid driving"));
-            advise.insert(new Advise(d4, "Do not drink alcohol"));
+            advise.insert(a41);
+            advise.insert(a42);
             advise.close();
 
             return true;
@@ -90,7 +115,7 @@ public class LoadDBTask extends AsyncTask<Void, Void, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean aBoolean) {
-        if (aBoolean == true) {
+        if (aBoolean) {
             Toast.makeText(ctx, "DB Successfully loaded!", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(ctx, "Oops there's sth wrong !", Toast.LENGTH_SHORT).show();

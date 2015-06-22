@@ -13,19 +13,52 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import com.diplomska.emed.martin.e_medicine.adapter.DrugAdapter;
+import com.diplomska.emed.martin.e_medicine.models.Drug;
 import com.diplomska.emed.martin.e_medicine.task.LoadDBTask;
 
 
+import java.util.Comparator;
+import java.util.List;
+
+
 public class MainActivity extends ActionBarActivity {
+
+    private ListView lv;
+    private String[] drugs;
+    private DrugAdapter drug;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LoadDBTask load=new LoadDBTask(MainActivity.this);
+        LoadDBTask load = new LoadDBTask(MainActivity.this);
         load.execute();
+        try{Thread.sleep(2000);}catch(InterruptedException ex){ex.printStackTrace();}
+
+        drug = new DrugAdapter(this);
+
+        lv = (ListView) findViewById(R.id.lista);
+        drug.open();
+        List<Drug> pom = drug.getAllItems();
+        drug.close();
+        drugs = new String[pom.size()];
+        for (int i = 0; i < pom.size(); i++) {
+            drugs[i] = pom.get(i).getGeneric_name();
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                getBaseContext(), android.R.layout.simple_list_item_1, drugs);
+        adapter.sort(new Comparator<String>() {
+            @Override
+            public int compare(String lhs, String rhs) {
+                return lhs.compareTo(rhs);
+            }
+        });
+        lv.setAdapter(adapter);
     }
 
     @Override

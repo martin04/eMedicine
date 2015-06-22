@@ -51,7 +51,7 @@ public class DrugAdapter {
         long rowID = db.insert(DBHelper.TABLE_DRUGS, null, cv);//vtoriot argument se koristi za da se postavi NULL na nekoja kolona ako ja ima takva
 
         if (rowID > 0) {
-            drug.setId(rowID);
+           drug.setId(rowID);
             return true;
         } else {
             return false;
@@ -80,17 +80,19 @@ public class DrugAdapter {
 
     public List<Drug> getAllItems() {
         List<Drug> drugs = new ArrayList<Drug>();
-        Drug d = new Drug();
+       // Drug d = new Drug();
 
         Cursor c = db.rawQuery("select * from " + DBHelper.TABLE_DRUGS, null);
         if (c.moveToFirst()) {
-            do {
+            while(!c.isAfterLast()){
+                Drug d = new Drug();
                 d.setId(c.getLong(c.getColumnIndex(DBHelper.COLUMN_DRUG_ID)));
                 d.setCode(c.getString(c.getColumnIndex(DBHelper.COLUMN_CODE)));
                 d.setLatin_name(c.getString(c.getColumnIndex(DBHelper.COLUMN_LATIN_NAME)));
                 d.setGeneric_name(c.getString(c.getColumnIndex(DBHelper.COLUMN_GENERIC_NAME)));
                 drugs.add(d);
-            } while (c.moveToNext());
+                c.moveToNext();
+            }
         }
         c.close();
         return drugs;
@@ -121,17 +123,18 @@ public class DrugAdapter {
     //zemanje po ime, kade sovpagjanjeto na imeto treba da bide parcijalno!
     public List<Drug> getDrugByGenName(String generic) {
         List<Drug> result = new ArrayList<Drug>();
-        Drug d=new Drug();
+        Drug d = new Drug();
 
-        Cursor c = db.rawQuery("select " + DBHelper.COLUMN_CODE + " " + DBHelper.COLUMN_GENERIC_NAME + " from " +
-                DBHelper.TABLE_DRUGS + " where "+DBHelper.COLUMN_GENERIC_NAME+" like '%"+generic+"%'", null);
+        Cursor c = db.rawQuery("select " + DBHelper.COLUMN_CODE + " " + DBHelper.COLUMN_GENERIC_NAME + " " + DBHelper.COLUMN_LATIN_NAME +
+                " from " + DBHelper.TABLE_DRUGS + " where " + DBHelper.COLUMN_GENERIC_NAME + " like '%" + generic + "%' or "
+                + DBHelper.COLUMN_LATIN_NAME + " like '%" + generic + "%'", null);
 
-        if(c.moveToFirst()){
-            do{
+        if (c.moveToFirst()) {
+            do {
                 d.setCode(c.getString(c.getColumnIndex(DBHelper.COLUMN_CODE)));
                 d.setGeneric_name(c.getString(c.getColumnIndex(DBHelper.COLUMN_GENERIC_NAME)));
                 result.add(d);
-            }while(c.moveToNext());
+            } while (c.moveToNext());
         }
 
         c.close();
