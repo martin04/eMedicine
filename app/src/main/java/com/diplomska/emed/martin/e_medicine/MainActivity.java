@@ -36,12 +36,13 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //task for filling the database
         LoadDBTask load = new LoadDBTask(MainActivity.this);
         load.execute();
         try{Thread.sleep(2000);}catch(InterruptedException ex){ex.printStackTrace();}
 
+        //filling the list view with the drugs
         drug = new DrugAdapter(this);
-
         lv = (ListView) findViewById(R.id.lista);
         drug.open();
         List<Drug> pom = drug.getAllItems();
