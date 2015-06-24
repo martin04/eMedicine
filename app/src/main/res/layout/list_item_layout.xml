@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/imgPill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="5dp"
         android:src="@drawable/ic_apche" />
 
     <TextView
@@ -14,8 +18,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="@dimen/generic_left_margin"
+        android:layout_marginStart="@dimen/generic_left_margin"
+        android:layout_marginTop="@dimen/generic_top_margin"
         android:layout_toEndOf="@+id/imgPill"
         android:layout_toRightOf="@+id/imgPill"
         android:text="Paracetamol"
@@ -26,9 +31,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtGeneric"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="@dimen/latin_left_margin"
+        android:layout_marginStart="@dimen/latin_left_margin"
         android:layout_toEndOf="@+id/imgPill"
         android:layout_toRightOf="@+id/imgPill"
         android:text="paracetamol"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageView
+        android:id="@+id/imgAlarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/alarm_right_margin"
+        android:src="@drawable/ic_alarm_add_black_36dp"
+        />
 </RelativeLayout>
