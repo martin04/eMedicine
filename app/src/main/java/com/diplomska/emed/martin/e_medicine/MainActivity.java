@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.diplomska.emed.martin.e_medicine.adapter.DrugAdapter;
+import com.diplomska.emed.martin.e_medicine.adapter.DrugNameAdapter;
 import com.diplomska.emed.martin.e_medicine.models.Drug;
 import com.diplomska.emed.martin.e_medicine.task.LoadDBTask;
 
@@ -27,9 +30,12 @@ import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
 
-    private ListView lv;
-    private String[] drugs;
+    //private ListView lv;
+   // private String[] drugs;
     private DrugAdapter drug;
+    private RecyclerView drugView;
+    private DrugNameAdapter adapter;
+    private LinearLayoutManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +49,23 @@ public class MainActivity extends ActionBarActivity {
 
         //filling the list view with the drugs
         drug = new DrugAdapter(this);
-        lv = (ListView) findViewById(R.id.lista);
         drug.open();
         List<Drug> pom = drug.getAllItems();
         drug.close();
-        drugs = new String[pom.size()];
-        for (int i = 0; i < pom.size(); i++) {
+
+        drugView=(RecyclerView)findViewById(R.id.lstDrugs);
+        drugView.setHasFixedSize(true);
+        manager=new LinearLayoutManager(this);
+        drugView.setLayoutManager(manager);
+        adapter=new DrugNameAdapter(pom);
+        drugView.setAdapter(adapter);
+
+        //lv = (ListView) findViewById(R.id.lista);
+        //drugs = new String[pom.size()];
+        /*for (int i = 0; i < pom.size(); i++) {
             drugs[i] = pom.get(i).getGeneric_name();
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        }*/
+        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getBaseContext(), android.R.layout.simple_list_item_1, drugs);
         adapter.sort(new Comparator<String>() {
             @Override
@@ -59,7 +73,8 @@ public class MainActivity extends ActionBarActivity {
                 return lhs.compareTo(rhs);
             }
         });
-        lv.setAdapter(adapter);
+        lv.setAdapter(adapter);*/
+
     }
 
     @Override
