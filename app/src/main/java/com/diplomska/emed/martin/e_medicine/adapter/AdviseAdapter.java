@@ -74,7 +74,8 @@ public class AdviseAdapter {
     //metod za zemanje na sovet po drug code
     public String getAdviseByDrugCode(String code) {
         String result = "";
-        Cursor c = db.query(DBHelper.TABLE_ADVISES, columns, DBHelper.COLUMN_D_CODE + "=" + code, null, null, null, null);
+        String[] selectionArgs={code};
+        Cursor c = db.query(DBHelper.TABLE_ADVISES, columns, DBHelper.COLUMN_D_CODE + " =?" ,selectionArgs, null, null, null, null);
 
         if (c.moveToFirst()) {
             do {

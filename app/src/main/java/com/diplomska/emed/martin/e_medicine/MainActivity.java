@@ -3,39 +3,32 @@ package com.diplomska.emed.martin.e_medicine;
 
 import android.app.AlertDialog;
 import android.app.SearchManager;
-
 import android.content.Context;
 import android.content.DialogInterface;
-
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.diplomska.emed.martin.e_medicine.adapter.DrugAdapter;
 import com.diplomska.emed.martin.e_medicine.adapter.DrugNameAdapter;
 import com.diplomska.emed.martin.e_medicine.models.Drug;
 import com.diplomska.emed.martin.e_medicine.task.LoadDBTask;
 
-
-import java.util.Comparator;
 import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
 
-    //private ListView lv;
-   // private String[] drugs;
     private DrugAdapter drug;
     private RecyclerView drugView;
     private DrugNameAdapter adapter;
     private LinearLayoutManager manager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +38,11 @@ public class MainActivity extends ActionBarActivity {
         //task for filling the database
         LoadDBTask load = new LoadDBTask(MainActivity.this);
         load.execute();
-        try{Thread.sleep(2000);}catch(InterruptedException ex){ex.printStackTrace();}
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
 
         //filling the list view with the drugs
         drug = new DrugAdapter(this);
@@ -53,27 +50,12 @@ public class MainActivity extends ActionBarActivity {
         List<Drug> pom = drug.getAllItems();
         drug.close();
 
-        drugView=(RecyclerView)findViewById(R.id.lstDrugs);
+        drugView = (RecyclerView) findViewById(R.id.lstDrugs);
         drugView.setHasFixedSize(true);
-        manager=new LinearLayoutManager(this);
+        manager = new LinearLayoutManager(this);
         drugView.setLayoutManager(manager);
-        adapter=new DrugNameAdapter(pom);
+        adapter = new DrugNameAdapter(pom);
         drugView.setAdapter(adapter);
-
-        //lv = (ListView) findViewById(R.id.lista);
-        //drugs = new String[pom.size()];
-        /*for (int i = 0; i < pom.size(); i++) {
-            drugs[i] = pom.get(i).getGeneric_name();
-        }*/
-        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                getBaseContext(), android.R.layout.simple_list_item_1, drugs);
-        adapter.sort(new Comparator<String>() {
-            @Override
-            public int compare(String lhs, String rhs) {
-                return lhs.compareTo(rhs);
-            }
-        });
-        lv.setAdapter(adapter);*/
 
     }
 

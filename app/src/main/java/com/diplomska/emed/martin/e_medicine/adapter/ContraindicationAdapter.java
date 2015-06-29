@@ -74,7 +74,8 @@ public class ContraindicationAdapter {
     //metoda za zemanje po lek t.e. po drug code
     public String getContraByDrugCode(String code) {
         String result = "";
-        Cursor c = db.query(DBHelper.TABLE_CONTRAINDICATIONS, columns, DBHelper.COLUMN_DRUG_CODE + "=" + code, null, null, null, null);
+        String[] selectionArgs={code};
+        Cursor c = db.query(DBHelper.TABLE_CONTRAINDICATIONS, columns, DBHelper.COLUMN_DRUG_CODE + " =?" ,selectionArgs, null, null, null, null);
 
         if (c.moveToFirst()) {
             do {

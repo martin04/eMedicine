@@ -12,6 +12,7 @@
     <string name="search_hint">Drug name&#8230;</string>
     <string name="menu_search">Search</string>
     <string name="search_result">Search result</string>
+    <string name="drug_details">Drug details</string>
 
     <!-- about dialog strings -->
     <string name="about_title">E-Medicine</string>
@@ -21,5 +22,10 @@
         Take in mind that this is only INFORMATION not a total diagnosis or some medical advise.
         Consult your doctor about everything!
     </string>
+
+    <!-- details dialog strings -->
+    <string name="details_title">Drug details</string>
+    <string name="contraindication_tag">&#187; Contraindications:</string>
+    <string name="advice_tag">&#187; Advices:</string>
 
 </resources>

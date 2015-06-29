@@ -2,13 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/main_activity_margin_ver"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/icons">
 
 <android.support.v7.widget.RecyclerView
     android:id="@+id/lstDrugs"
     android:scrollbars="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/icons"
     >
 
 </android.support.v7.widget.RecyclerView>

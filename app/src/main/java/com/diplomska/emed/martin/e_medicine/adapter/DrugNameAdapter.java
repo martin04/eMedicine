@@ -35,6 +35,7 @@ public class DrugNameAdapter extends RecyclerView.Adapter<DrugNameViewHolder> {
         Drug d = drugsDataSet.get(position);
         holder.genericName.setText(d.getGeneric_name());
         holder.latinName.setText(d.getLatin_name());
+        holder.drugCode.setText(d.getCode());
     }
 
     @Override
