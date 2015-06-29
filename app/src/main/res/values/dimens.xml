@@ -12,8 +12,5 @@
     <dimen name="latin_left_margin">55dp</dimen>
 
     <dimen name="alarm_right_margin">10dp</dimen>
-
-    <!-- Text size for contras and advices -->
-    <dimen name="cont_adv_size">16sp</dimen>
-
+     
 </resources>

@@ -19,6 +19,7 @@ import com.diplomska.emed.martin.e_medicine.adapter.DrugNameAdapter;
 import com.diplomska.emed.martin.e_medicine.models.Drug;
 import com.diplomska.emed.martin.e_medicine.task.LoadDBTask;
 
+import java.io.File;
 import java.util.List;
 
 
@@ -36,12 +37,14 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         //task for filling the database
-        LoadDBTask load = new LoadDBTask(MainActivity.this);
-        load.execute();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
+        if(!checkDB()) {
+            LoadDBTask load = new LoadDBTask(MainActivity.this);
+            load.execute();
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         }
 
         //filling the list view with the drugs
@@ -87,7 +90,7 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //funkcija za kreiranje na dijalog prozorecot za About
+    //Function for creating the About dialog window
     private void showAbout() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle(R.string.about_title);
@@ -101,5 +104,15 @@ public class MainActivity extends ActionBarActivity {
         });
         builder.create();
         builder.show();
+    }
+
+    //Function for checking if the database exists
+    private boolean checkDB(){
+        File db=getApplicationContext().getDatabasePath("emedicine.db");
+        if (!db.exists()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

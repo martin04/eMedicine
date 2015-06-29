@@ -98,7 +98,6 @@ public class DrugDetailsActivity extends ActionBarActivity {
             contraDesc = new TextView(this);
             contraDesc.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
-            contraDesc.setTextSize(getResources().getDimension(R.dimen.cont_adv_size));
             contraDesc.setText(Html.fromHtml("&#183;") + " " + contra[i]);
             row.addView(contraDesc);
             tableContra.addView(row, i);
@@ -116,7 +115,6 @@ public class DrugDetailsActivity extends ActionBarActivity {
             adviceDesc = new TextView(this);
             adviceDesc.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
-            adviceDesc.setTextSize(getResources().getDimension(R.dimen.cont_adv_size));
             adviceDesc.setText(Html.fromHtml("&#183;") + " " + adv[i]);
             row.addView(adviceDesc);
             tableAdvice.addView(row, i);
