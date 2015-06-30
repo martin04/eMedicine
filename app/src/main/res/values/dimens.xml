@@ -12,5 +12,6 @@
     <dimen name="latin_left_margin">55dp</dimen>
 
     <dimen name="alarm_right_margin">10dp</dimen>
-     
+
+
 </resources>
