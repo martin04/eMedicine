@@ -51,7 +51,7 @@ public class DrugAdapter {
         long rowID = db.insert(DBHelper.TABLE_DRUGS, null, cv);//vtoriot argument se koristi za da se postavi NULL na nekoja kolona ako ja ima takva
 
         if (rowID > 0) {
-           drug.setId(rowID);
+            drug.setId(rowID);
             return true;
         } else {
             return false;
@@ -80,11 +80,10 @@ public class DrugAdapter {
 
     public List<Drug> getAllItems() {
         List<Drug> drugs = new ArrayList<Drug>();
-       // Drug d = new Drug();
 
         Cursor c = db.rawQuery("select * from " + DBHelper.TABLE_DRUGS, null);
         if (c.moveToFirst()) {
-            while(!c.isAfterLast()){
+            while (!c.isAfterLast()) {
                 Drug d = new Drug();
                 d.setId(c.getLong(c.getColumnIndex(DBHelper.COLUMN_DRUG_ID)));
                 d.setCode(c.getString(c.getColumnIndex(DBHelper.COLUMN_CODE)));
