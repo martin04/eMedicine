@@ -13,9 +13,11 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.diplomska.emed.martin.e_medicine.adapter.DrugAdapter;
 import com.diplomska.emed.martin.e_medicine.adapter.DrugNameAdapter;
+import com.diplomska.emed.martin.e_medicine.interfaces.OnTaskCompleted;
 import com.diplomska.emed.martin.e_medicine.models.Drug;
 import com.diplomska.emed.martin.e_medicine.task.LoadDBTask;
 
@@ -23,9 +25,9 @@ import java.io.File;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
 
-    private DrugAdapter drug;
+    // private DrugAdapter drug;
     private RecyclerView drugView;
     private DrugNameAdapter adapter;
     private LinearLayoutManager manager;
@@ -36,30 +38,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //task for filling the database
-        if(!checkDB()) {
-            LoadDBTask load = new LoadDBTask(MainActivity.this);
-            load.execute();
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
-        }
-
-        //filling the list view with the drugs
-        drug = new DrugAdapter(this);
-        drug.open();
-        List<Drug> pom = drug.getAllItems();
-        drug.close();
 
         drugView = (RecyclerView) findViewById(R.id.lstDrugs);
         drugView.setHasFixedSize(true);
-        manager = new LinearLayoutManager(this);
+        manager = new LinearLayoutManager(MainActivity.this);
         drugView.setLayoutManager(manager);
-        adapter = new DrugNameAdapter(pom);
-        drugView.setAdapter(adapter);
 
+        //task for filling the database
+        LoadDBTask load = new LoadDBTask(MainActivity.this, this);
+        load.execute();
     }
 
     @Override
@@ -106,13 +93,15 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
-    //Function for checking if the database exists
-    private boolean checkDB(){
-        File db=getApplicationContext().getDatabasePath("emedicine.db");
-        if (!db.exists()) {
-            return false;
-        } else {
-            return true;
-        }
+    @Override
+    public void onTaskCompleted(List<Drug> drugs) {
+        //filling the list view with the drugs
+        adapter = new DrugNameAdapter(drugs);
+        drugView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onTaskNotCompleted() {
+        Toast.makeText(MainActivity.this, "Oops there is sth wrong!", Toast.LENGTH_SHORT).show();
     }
 }
