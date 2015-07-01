@@ -7,7 +7,7 @@
 
     <!-- view dimensions -->
     <dimen name="generic_left_margin">20dp</dimen>
-    <dimen name="generic_top_margin">8dp</dimen>
+    <dimen name="generic_top_margin">2dp</dimen>
 
     <dimen name="latin_left_margin">55dp</dimen>
 

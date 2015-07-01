@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +21,8 @@ import com.diplomska.emed.martin.e_medicine.adapter.ContraindicationAdapter;
 public class DrugNameViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     //I use this to find all the views in the list_item_layout.xml
 
-    public ImageView alarm;
+    public ImageButton alarm;
+    public ImageView pills;
     public TextView genericName;
     public TextView latinName;
     public TextView drugCode;
@@ -31,11 +33,13 @@ public class DrugNameViewHolder extends RecyclerView.ViewHolder implements View.
     public DrugNameViewHolder(View itemView) {
         super(itemView);
 
-        alarm = (ImageView) itemView.findViewById(R.id.imgAlarm);
+        pills = (ImageView) itemView.findViewById(R.id.imgPill);
+        alarm = (ImageButton) itemView.findViewById(R.id.imgAlarm);
         genericName = (TextView) itemView.findViewById(R.id.txtGeneric);
         latinName = (TextView) itemView.findViewById(R.id.txtLatin);
         drugCode = (TextView) itemView.findViewById(R.id.txtCode);
 
+        pills.setOnClickListener(this);
         alarm.setOnClickListener(this);
         genericName.setOnClickListener(this);
         latinName.setOnClickListener(this);
@@ -47,8 +51,10 @@ public class DrugNameViewHolder extends RecyclerView.ViewHolder implements View.
         int pos = getPosition();
         String code = "";
 
-        if (v instanceof TextView) {
-
+        if (v instanceof ImageButton) {
+            //ovde sredi so alarmi rabota
+            Toast.makeText(ctx, "Button " + pos + " Clicked", Toast.LENGTH_SHORT).show();
+        } else {
             code = drugCode.getText().toString();
             String[] contraindications = getContraindications(ctx, code).split("\n");
             String[] advices = getAdvices(ctx, code).split("\n");
@@ -59,11 +65,6 @@ public class DrugNameViewHolder extends RecyclerView.ViewHolder implements View.
             details.putExtra("contraindications", contraindications);
             details.putExtra("advices", advices);
             ctx.startActivity(details);
-
-        } else if (v instanceof ImageView) {
-            //ovde sredi so alarmi rabota
-            Toast.makeText(ctx, "Button " + pos + " Clicked", Toast.LENGTH_SHORT).show();
-
         }
     }
 

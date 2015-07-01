@@ -2,6 +2,7 @@ package com.diplomska.emed.martin.e_medicine;
 
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,19 +16,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.diplomska.emed.martin.e_medicine.adapter.DrugAdapter;
 import com.diplomska.emed.martin.e_medicine.adapter.DrugNameAdapter;
 import com.diplomska.emed.martin.e_medicine.interfaces.OnTaskCompleted;
 import com.diplomska.emed.martin.e_medicine.models.Drug;
 import com.diplomska.emed.martin.e_medicine.task.LoadDBTask;
 
-import java.io.File;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
 
-    // private DrugAdapter drug;
     private RecyclerView drugView;
     private DrugNameAdapter adapter;
     private LinearLayoutManager manager;
@@ -38,13 +36,13 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 
         drugView = (RecyclerView) findViewById(R.id.lstDrugs);
         drugView.setHasFixedSize(true);
         manager = new LinearLayoutManager(MainActivity.this);
         drugView.setLayoutManager(manager);
 
-        //task for filling the database
         LoadDBTask load = new LoadDBTask(MainActivity.this, this);
         load.execute();
     }
@@ -77,6 +75,32 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Exit")
+                .setMessage("Do you really want to exit?")
+                .setNegativeButton("No", null)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MainActivity.super.onBackPressed();
+                    }
+                }).create().show();
+    }
+
     //Function for creating the About dialog window
     private void showAbout() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -95,7 +119,6 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
 
     @Override
     public void onTaskCompleted(List<Drug> drugs) {
-        //filling the list view with the drugs
         adapter = new DrugNameAdapter(drugs);
         drugView.setAdapter(adapter);
     }

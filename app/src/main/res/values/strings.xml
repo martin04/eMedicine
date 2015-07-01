@@ -3,7 +3,7 @@
 
     <string name="splash_sc">Splash Screen</string>
 
-    <string name="example_text">Some simple text</string>
+    <string name="content_desc">Image</string>
 
     <!--action bar strings -->
     <string name="action_settings">Settings</string>

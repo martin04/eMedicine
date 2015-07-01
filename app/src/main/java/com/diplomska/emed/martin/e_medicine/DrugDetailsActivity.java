@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.Menu;
@@ -31,6 +32,12 @@ public class DrugDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drug_details);
 
+        //must check if null
+        assert getSupportActionBar() != null;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+
         intent = getIntent();
 
         drugName = (TextView) findViewById(R.id.txtName);
@@ -41,26 +48,46 @@ public class DrugDetailsActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater mi = getMenuInflater();
-        mi.inflate(R.menu.menu_details, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
 
-        if (id == R.id.action_alarms) {
-            return true;
+        switch (id) {
+            case R.id.action_alarms:
+                return true;
+            case R.id.action_about:
+                showAbout();
+                break;
+            case R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
         }
-
-        if (id == R.id.action_about) {
-            showAbout();
-        }
-
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mi = getMenuInflater();
+        mi.inflate(R.menu.menu_details, menu);
+        return true;
     }
 
     //Function for creating the About dialog window
