@@ -20,14 +20,26 @@
 
         </activity>
 
+        <!--actions activity -->
+        <activity
+            android:name=".ActionsActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+
+        </activity>
+
         <!-- glavna strana -->
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
+            android:parentActivityName=".ActionsActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".SearchResultsActivity" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ActionsActivity" />
         </activity>
 
         <!-- search activity -->

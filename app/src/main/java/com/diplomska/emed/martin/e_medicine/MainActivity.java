@@ -38,6 +38,9 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
 
         overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 
+        assert getSupportActionBar() != null;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         drugView = (RecyclerView) findViewById(R.id.lstDrugs);
         drugView.setHasFixedSize(true);
         manager = new LinearLayoutManager(MainActivity.this);
@@ -89,16 +92,8 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setTitle("Exit")
-                .setMessage("Do you really want to exit?")
-                .setNegativeButton("No", null)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        MainActivity.super.onBackPressed();
-                    }
-                }).create().show();
+        super.onBackPressed();
+        overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
     }
 
     //Function for creating the About dialog window

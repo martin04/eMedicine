@@ -1,10 +1,12 @@
 package com.diplomska.emed.martin.e_medicine.splashscrn;
 
 import android.app.Activity;
+import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.diplomska.emed.martin.e_medicine.ActionsActivity;
 import com.diplomska.emed.martin.e_medicine.MainActivity;
 import com.diplomska.emed.martin.e_medicine.R;
 
@@ -25,7 +27,7 @@ public class SplashScreen extends Activity {
         h.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(SplashScreen.this, MainActivity.class);
+                Intent i = new Intent(SplashScreen.this, ActionsActivity.class);
                 startActivity(i);
                 finish();
             }
