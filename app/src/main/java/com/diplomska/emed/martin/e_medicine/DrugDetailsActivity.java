@@ -31,8 +31,6 @@ public class DrugDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drug_details);
 
-        getSupportActionBar().setTitle(R.string.drug_details);
-
         intent = getIntent();
 
         drugName = (TextView) findViewById(R.id.txtName);
