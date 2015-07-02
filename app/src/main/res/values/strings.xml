@@ -13,6 +13,8 @@
     <string name="menu_search">Search</string>
     <string name="search_result">Search result</string>
     <string name="drug_details">Drug details</string>
+    <string name="drugs_main">Drugs</string>
+
 
     <!-- about dialog strings -->
     <string name="about_title">E-Medicine</string>
@@ -27,5 +29,4 @@
     <string name="details_title">Drug details</string>
     <string name="contraindication_tag">&#187; Contraindications:</string>
     <string name="advice_tag">&#187; Advices:</string>
-
 </resources>

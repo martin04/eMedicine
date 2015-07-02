@@ -31,7 +31,7 @@
         <!-- glavna strana -->
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:label="@string/drugs_main"
             android:parentActivityName=".ActionsActivity"
             android:screenOrientation="portrait">
             <meta-data
