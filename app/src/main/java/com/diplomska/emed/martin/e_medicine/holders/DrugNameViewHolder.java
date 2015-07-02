@@ -2,6 +2,7 @@ package com.diplomska.emed.martin.e_medicine.holders;
 
 import android.content.Context;
 import android.content.Intent;
+import android.provider.AlarmClock;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
@@ -54,6 +55,13 @@ public class DrugNameViewHolder extends RecyclerView.ViewHolder implements View.
         if (v instanceof ImageButton) {
             //ovde sredi so alarmi rabota
             Toast.makeText(ctx, "Button " + pos + " Clicked", Toast.LENGTH_SHORT).show();
+
+            Intent intent=new Intent(AlarmClock.ACTION_SET_ALARM);
+            intent.putExtra(AlarmClock.EXTRA_MESSAGE,latinName.getText().toString());
+            intent.putExtra(AlarmClock.EXTRA_HOUR,15);
+            intent.putExtra(AlarmClock.EXTRA_MINUTES,22);
+            ctx.startActivity(intent);
+
         } else {
             code = drugCode.getText().toString();
             String[] contraindications = getContraindications(ctx, code).split("\n");
