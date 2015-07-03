@@ -13,5 +13,11 @@
 
     <dimen name="alarm_right_margin">10dp</dimen>
 
+    <!-- action item margins -->
+    <dimen name="left_margin">30dp</dimen>
+    <dimen name="right_margin">30dp</dimen>
+    <dimen name="top_margin">10dp</dimen>
+    <dimen name="bottom_margin">9dp</dimen>
+
 
 </resources>

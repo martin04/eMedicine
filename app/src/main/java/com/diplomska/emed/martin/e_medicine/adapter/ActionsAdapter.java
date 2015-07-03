@@ -15,7 +15,7 @@ import com.diplomska.emed.martin.e_medicine.holders.ActionsViewHolder;
 public class ActionsAdapter extends RecyclerView.Adapter<ActionsViewHolder> {
 
     private String[] actions={"Medicine search & information","Pill identifier"};
-    private int[] pictures={R.drawable.action_find,R.drawable.pills2};
+    private int[] pictures={R.drawable.action_find,R.drawable.apche};
 
     @Override
     public ActionsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
