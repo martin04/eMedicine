@@ -19,7 +19,7 @@ public class DrugAdapter {
     private DBHelper helper;
     private SQLiteDatabase db;
 
-    private String[] columns = {DBHelper.COLUMN_DRUG_ID, DBHelper.COLUMN_CODE, DBHelper.COLUMN_LATIN_NAME, DBHelper.COLUMN_GENERIC_NAME};
+    private String[] columns = {DBHelper.COLUMN_DRUG_ID, DBHelper.COLUMN_CODE, DBHelper.COLUMN_LATIN_NAME, DBHelper.COLUMN_GENERIC_NAME, DBHelper.COLUMN_COLOR, DBHelper.COLUMN_SHAPE};
 
     public DrugAdapter(Context ctx) {
         helper = new DBHelper(ctx);
@@ -47,8 +47,10 @@ public class DrugAdapter {
         cv.put(DBHelper.COLUMN_CODE, drug.getCode());
         cv.put(DBHelper.COLUMN_LATIN_NAME, drug.getLatin_name());
         cv.put(DBHelper.COLUMN_GENERIC_NAME, drug.getGeneric_name());
+        cv.put(DBHelper.COLUMN_COLOR, drug.getGeneric_name());
+        cv.put(DBHelper.COLUMN_SHAPE, drug.getGeneric_name());
 
-        long rowID = db.insert(DBHelper.TABLE_DRUGS, null, cv);//vtoriot argument se koristi za da se postavi NULL na nekoja kolona ako ja ima takva
+        long rowID = db.insert(DBHelper.TABLE_DRUGS, null, cv);
 
         if (rowID > 0) {
             drug.setId(rowID);
@@ -66,6 +68,8 @@ public class DrugAdapter {
         cv.put(DBHelper.COLUMN_CODE, drug.getCode());
         cv.put(DBHelper.COLUMN_LATIN_NAME, drug.getLatin_name());
         cv.put(DBHelper.COLUMN_GENERIC_NAME, drug.getGeneric_name());
+        cv.put(DBHelper.COLUMN_COLOR, drug.getGeneric_name());
+        cv.put(DBHelper.COLUMN_SHAPE, drug.getGeneric_name());
 
         return db.update(DBHelper.TABLE_DRUGS, cv, DBHelper.COLUMN_DRUG_ID + "=" + drug.getId(), null) > 0;
     }
@@ -89,6 +93,8 @@ public class DrugAdapter {
                 d.setCode(c.getString(c.getColumnIndex(DBHelper.COLUMN_CODE)));
                 d.setLatin_name(c.getString(c.getColumnIndex(DBHelper.COLUMN_LATIN_NAME)));
                 d.setGeneric_name(c.getString(c.getColumnIndex(DBHelper.COLUMN_GENERIC_NAME)));
+                d.setColor(c.getString(c.getColumnIndex(DBHelper.COLUMN_COLOR)));
+                d.setShape(c.getString(c.getColumnIndex(DBHelper.COLUMN_SHAPE)));
                 drugs.add(d);
                 c.moveToNext();
             }
@@ -106,7 +112,8 @@ public class DrugAdapter {
                 d.setCode(c.getString(c.getColumnIndex(DBHelper.COLUMN_CODE)));
                 d.setLatin_name(c.getString(c.getColumnIndex(DBHelper.COLUMN_LATIN_NAME)));
                 d.setGeneric_name(c.getString(c.getColumnIndex(DBHelper.COLUMN_GENERIC_NAME)));
-
+                d.setColor(c.getString(c.getColumnIndex(DBHelper.COLUMN_COLOR)));
+                d.setShape(c.getString(c.getColumnIndex(DBHelper.COLUMN_SHAPE)));
                 return d;
             } else {
                 return null;
@@ -125,6 +132,7 @@ public class DrugAdapter {
         Drug d = new Drug();
 
         Cursor c = db.rawQuery("select " + DBHelper.COLUMN_CODE + " " + DBHelper.COLUMN_GENERIC_NAME + " " + DBHelper.COLUMN_LATIN_NAME +
+                " " + DBHelper.COLUMN_COLOR + " " + DBHelper.COLUMN_SHAPE +
                 " from " + DBHelper.TABLE_DRUGS + " where " + DBHelper.COLUMN_GENERIC_NAME + " like '%" + generic + "%' or "
                 + DBHelper.COLUMN_LATIN_NAME + " like '%" + generic + "%'", null);
 
@@ -132,6 +140,9 @@ public class DrugAdapter {
             do {
                 d.setCode(c.getString(c.getColumnIndex(DBHelper.COLUMN_CODE)));
                 d.setGeneric_name(c.getString(c.getColumnIndex(DBHelper.COLUMN_GENERIC_NAME)));
+                d.setLatin_name(c.getString(c.getColumnIndex(DBHelper.COLUMN_LATIN_NAME)));
+                d.setColor(c.getString(c.getColumnIndex(DBHelper.COLUMN_COLOR)));
+                d.setShape(c.getString(c.getColumnIndex(DBHelper.COLUMN_SHAPE)));
                 result.add(d);
             } while (c.moveToNext());
         }

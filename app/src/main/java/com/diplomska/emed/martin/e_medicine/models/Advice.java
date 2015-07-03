@@ -6,21 +6,21 @@ import android.os.Parcelable;
 /**
  * Created by Martin on 18-Jun-15.
  */
-public class Advise implements Parcelable {
+public class Advice implements Parcelable {
 
     private Long id;
     private Drug drug;
     private String advise;
 
-    public Advise() { }
+    public Advice() { }
 
-    public Advise(Drug drug, String advise) {
+    public Advice(Drug drug, String advise) {
         super();
         this.drug = drug;
         this.advise = advise;
     }
 
-    public Advise(Parcel in){
+    public Advice(Parcel in){
         super();
         this.id=in.readLong();
         this.drug=in.readParcelable(Drug.class.getClassLoader());
@@ -63,15 +63,15 @@ public class Advise implements Parcelable {
         dest.writeString(getAdvise());
     }
 
-    public static final Parcelable.Creator<Advise> CREATOR = new Parcelable.Creator<Advise>(){
+    public static final Parcelable.Creator<Advice> CREATOR = new Parcelable.Creator<Advice>(){
         @Override
-        public Advise createFromParcel(Parcel source) {
-            return new Advise(source);
+        public Advice createFromParcel(Parcel source) {
+            return new Advice(source);
         }
 
         @Override
-        public Advise[] newArray(int size) {
-            return new Advise[size];
+        public Advice[] newArray(int size) {
+            return new Advice[size];
         }
     };
 }

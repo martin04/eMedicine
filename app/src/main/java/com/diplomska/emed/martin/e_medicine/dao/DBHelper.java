@@ -11,7 +11,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     //database name and version
     public static final String DATABASE_NAME = "emedicine.db";
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 6;
 
     //table Drug
     public static final String TABLE_DRUGS = "drugs";
@@ -19,6 +19,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_CODE = "drug_code";
     public static final String COLUMN_LATIN_NAME = "latin_name";
     public static final String COLUMN_GENERIC_NAME = "generic_name";
+    public static final String COLUMN_SHAPE = "shape";
+    public static final String COLUMN_COLOR = "color";
 
     //table Contraindication
     public static final String TABLE_CONTRAINDICATIONS = "contraindications";
@@ -26,17 +28,17 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_DRUG_CODE = "drug_code";
     public static final String COLUMN_CONTRAINDICATION = "contraindication";
 
-    //table Advise
-    public static final String TABLE_ADVISES = "advises";
+    //table Advice
+    public static final String TABLE_ADVISES = "advices";
     public static final String COLUMN_ADVISE_ID = "_id";
     public static final String COLUMN_D_CODE = "drug_code";
-    public static final String COLUMN_ADVISE = "advise";
+    public static final String COLUMN_ADVISE = "advice";
 
 
     //creating table DRUGS
     static final String createDrugs = String.format("create table %s(%s integer primary key autoincrement, " +
-                    "%s text not null unique, %s text not null, %s text not null);", TABLE_DRUGS, COLUMN_DRUG_ID,
-            COLUMN_CODE, COLUMN_LATIN_NAME, COLUMN_GENERIC_NAME);
+                    "%s text not null unique, %s text not null, %s text not null, %s text not null, %s text not null);", TABLE_DRUGS, COLUMN_DRUG_ID,
+            COLUMN_CODE, COLUMN_LATIN_NAME, COLUMN_GENERIC_NAME, COLUMN_COLOR, COLUMN_SHAPE);
 
     //creatig table CONTRAIND.
     static final String createContra = String.format("create table %s(%s integer primary key autoincrement, " +

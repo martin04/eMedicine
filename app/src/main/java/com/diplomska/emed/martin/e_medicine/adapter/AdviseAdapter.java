@@ -6,8 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.diplomska.emed.martin.e_medicine.dao.DBHelper;
-import com.diplomska.emed.martin.e_medicine.models.Advise;
-import com.diplomska.emed.martin.e_medicine.models.Advise;
+import com.diplomska.emed.martin.e_medicine.models.Advice;
 
 /**
  * Created by Martin on 18-Jun-15.
@@ -33,7 +32,7 @@ public class AdviseAdapter {
     }
 
     //CRUD operations
-    public boolean insert(Advise advise) {
+    public boolean insert(Advice advise) {
         if (advise.getId() != null) {
             return update(advise);
         }
@@ -55,7 +54,7 @@ public class AdviseAdapter {
         }
     }
 
-    public boolean update(Advise advise) {
+    public boolean update(Advice advise) {
         ContentValues cv = new ContentValues();
         if (advise.getId() != null) {
             cv.put(DBHelper.COLUMN_ADVISE_ID, advise.getId());
