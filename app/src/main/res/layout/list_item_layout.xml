@@ -11,11 +11,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:contentDescription="@string/content_desc"
-        android:src="@drawable/ic_apche"
         android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp" />
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/content_desc"
+        android:src="@drawable/ic_drug_info" />
 
     <ImageButton
         android:id="@+id/imgAlarm"
@@ -26,9 +27,9 @@
         android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/alarm_right_margin"
         android:layout_marginRight="@dimen/alarm_right_margin"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/content_desc"
-        android:src="@drawable/ic_alarm_add_black_36dp"
-        android:background="@android:color/transparent"/>
+        android:src="@drawable/ic_alarm_add_black_36dp" />
 
     <TextView
         android:id="@+id/txtGeneric"

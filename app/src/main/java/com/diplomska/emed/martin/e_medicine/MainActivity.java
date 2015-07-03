@@ -22,6 +22,7 @@ import com.diplomska.emed.martin.e_medicine.interfaces.OnTaskCompleted;
 import com.diplomska.emed.martin.e_medicine.models.Drug;
 import com.diplomska.emed.martin.e_medicine.task.LoadDBTask;
 
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -118,6 +119,12 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
     @Override
     public void onTaskCompleted(List<Drug> drugs) {
         adapter = new DrugNameAdapter(drugs);
+        adapter.sort(new Comparator<Drug>() {
+            @Override
+            public int compare(Drug lhs, Drug rhs) {
+                return lhs.getGeneric_name().compareTo(rhs.getGeneric_name());
+            }
+        });
         drugView.setAdapter(adapter);
     }
 

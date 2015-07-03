@@ -9,6 +9,8 @@ import com.diplomska.emed.martin.e_medicine.R;
 import com.diplomska.emed.martin.e_medicine.holders.DrugNameViewHolder;
 import com.diplomska.emed.martin.e_medicine.models.Drug;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -41,5 +43,10 @@ public class DrugNameAdapter extends RecyclerView.Adapter<DrugNameViewHolder> {
     @Override
     public int getItemCount() {
         return drugsDataSet.size();
+    }
+
+    public void sort(Comparator<Drug> comparator){
+        Collections.sort(drugsDataSet,comparator);
+        notifyItemRangeChanged(0,getItemCount());
     }
 }
