@@ -3,6 +3,7 @@ package com.diplomska.emed.martin.e_medicine;
 
 import android.app.AlertDialog;
 import android.app.Application;
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
     private RecyclerView drugView;
     private DrugNameAdapter adapter;
     private LinearLayoutManager manager;
-
+    private ProgressDialog pdLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +118,13 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
     }
 
     @Override
+    public void onTaskStarted() {
+        pdLoading=new ProgressDialog(this);
+        pdLoading.setMessage("Loading...");
+        pdLoading.show();
+    }
+
+    @Override
     public void onTaskCompleted(List<Drug> drugs) {
         adapter = new DrugNameAdapter(drugs);
         adapter.sort(new Comparator<Drug>() {
@@ -126,10 +134,12 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
             }
         });
         drugView.setAdapter(adapter);
+        pdLoading.cancel();
     }
 
     @Override
     public void onTaskNotCompleted() {
         Toast.makeText(MainActivity.this, "Oops there is sth wrong!", Toast.LENGTH_SHORT).show();
+        pdLoading.cancel();
     }
 }

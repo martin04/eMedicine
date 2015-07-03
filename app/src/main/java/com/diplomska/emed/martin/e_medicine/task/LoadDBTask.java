@@ -37,6 +37,7 @@ public class LoadDBTask extends AsyncTask<Void, Void, List<Drug>> {
         drug = new DrugAdapter(ctx);
         contra = new ContraindicationAdapter(ctx);
         advice = new AdviseAdapter(ctx);
+        listener.onTaskStarted();
     }
 
     @Override
