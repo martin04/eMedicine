@@ -29,4 +29,9 @@
     <string name="details_title">Drug details</string>
     <string name="contraindication_tag">&#187; Contraindications:</string>
     <string name="advice_tag">&#187; Advices:</string>
+
+
+    <!-- string for progress dialogs -->
+    <string name="loading_db">Loading&#8230;</string>
+    <string name="searching_db">Searching&#8230;</string>
 </resources>

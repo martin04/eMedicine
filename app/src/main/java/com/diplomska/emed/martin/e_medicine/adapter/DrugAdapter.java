@@ -129,15 +129,13 @@ public class DrugAdapter {
     //zemanje po ime, kade sovpagjanjeto na imeto treba da bide parcijalno!
     public List<Drug> getDrugByGenName(String generic) {
         List<Drug> result = new ArrayList<Drug>();
-        Drug d = new Drug();
 
-        Cursor c = db.rawQuery("select " + DBHelper.COLUMN_CODE + " " + DBHelper.COLUMN_GENERIC_NAME + " " + DBHelper.COLUMN_LATIN_NAME +
-                " " + DBHelper.COLUMN_COLOR + " " + DBHelper.COLUMN_SHAPE +
-                " from " + DBHelper.TABLE_DRUGS + " where " + DBHelper.COLUMN_GENERIC_NAME + " like '%" + generic + "%' or "
+        Cursor c = db.rawQuery("select distinct * from " + DBHelper.TABLE_DRUGS + " where " + DBHelper.COLUMN_GENERIC_NAME + " like '%" + generic + "%' or "
                 + DBHelper.COLUMN_LATIN_NAME + " like '%" + generic + "%'", null);
 
         if (c.moveToFirst()) {
             do {
+                Drug d = new Drug();
                 d.setCode(c.getString(c.getColumnIndex(DBHelper.COLUMN_CODE)));
                 d.setGeneric_name(c.getString(c.getColumnIndex(DBHelper.COLUMN_GENERIC_NAME)));
                 d.setLatin_name(c.getString(c.getColumnIndex(DBHelper.COLUMN_LATIN_NAME)));

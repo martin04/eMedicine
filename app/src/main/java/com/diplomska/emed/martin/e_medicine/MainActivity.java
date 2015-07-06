@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -16,18 +17,20 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.diplomska.emed.martin.e_medicine.adapter.DrugNameAdapter;
 import com.diplomska.emed.martin.e_medicine.interfaces.OnTaskCompleted;
 import com.diplomska.emed.martin.e_medicine.models.Drug;
 import com.diplomska.emed.martin.e_medicine.task.LoadDBTask;
+import com.diplomska.emed.martin.e_medicine.task.SearchTask;
 
 import java.util.Comparator;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
+public class MainActivity extends AppCompatActivity implements OnTaskCompleted, SearchView.OnQueryTextListener {
 
     private RecyclerView drugView;
     private DrugNameAdapter adapter;
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
         SearchManager sm = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView sv = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         sv.setSearchableInfo(sm.getSearchableInfo(getComponentName()));
+        sv.setOnQueryTextListener(this);
 
         return true;
     }
@@ -119,8 +123,8 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
 
     @Override
     public void onTaskStarted() {
-        pdLoading=new ProgressDialog(this);
-        pdLoading.setMessage("Loading...");
+        pdLoading = new ProgressDialog(this);
+        pdLoading.setMessage(getResources().getString(R.string.loading_db));
         pdLoading.show();
     }
 
@@ -141,5 +145,17 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
     public void onTaskNotCompleted() {
         Toast.makeText(MainActivity.this, "Oops there is sth wrong!", Toast.LENGTH_SHORT).show();
         pdLoading.cancel();
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        SearchTask search = new SearchTask(this, this);
+        search.execute(newText);
+        return true;
     }
 }
