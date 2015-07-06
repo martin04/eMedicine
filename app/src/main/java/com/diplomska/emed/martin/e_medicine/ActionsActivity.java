@@ -39,7 +39,7 @@ public class ActionsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater mi = getMenuInflater();
-        mi.inflate(R.menu.menu_details, menu);
+        mi.inflate(R.menu.menu_actions, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -48,8 +48,6 @@ public class ActionsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.action_alarms:
-                return true;
             case R.id.action_about:
                 showAbout();
                 break;
