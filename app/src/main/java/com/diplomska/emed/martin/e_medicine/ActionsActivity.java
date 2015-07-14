@@ -13,27 +13,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.diplomska.emed.martin.e_medicine.adapter.ActionsAdapter;
+import com.diplomska.emed.martin.e_medicine.fragments.ActionsFragment;
 
 /**
  * Created by Martin on 01-Jul-15.
  */
 public class ActionsActivity extends AppCompatActivity {
 
-    private RecyclerView actions;
-    private ActionsAdapter adapter;
-    private StaggeredGridLayoutManager manager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actions);
 
-        actions = (RecyclerView) findViewById(R.id.lstActions);
-        actions.setHasFixedSize(true);
-        manager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        actions.setLayoutManager(manager);
-        adapter = new ActionsAdapter();
-        actions.setAdapter(adapter);
+        ActionsFragment fragment = new ActionsFragment();
+        getFragmentManager().beginTransaction().replace(R.id.lstActions, fragment).addToBackStack(null).commit();
+
     }
 
     @Override

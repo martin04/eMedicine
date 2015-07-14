@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.diplomska.emed.martin.e_medicine.MainActivity;
+import com.diplomska.emed.martin.e_medicine.PillIdActivity;
 import com.diplomska.emed.martin.e_medicine.R;
 
 /**
@@ -39,7 +40,9 @@ public class ActionsViewHolder extends RecyclerView.ViewHolder implements View.O
                 ctx.startActivity(intent);
                 break;
             case 1:
-                Toast.makeText(ctx, "Pill identifier is still under construction !", Toast.LENGTH_LONG).show();
+                Intent intent2 = new Intent(ctx, PillIdActivity.class);
+                ctx.startActivity(intent2);
+                //Toast.makeText(ctx, "Pill identifier is still under construction !", Toast.LENGTH_LONG).show();
                 break;
             default:
                 Toast.makeText(ctx, "Wrong selection! Please try again.", Toast.LENGTH_SHORT).show();

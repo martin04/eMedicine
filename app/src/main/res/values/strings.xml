@@ -14,6 +14,7 @@
     <string name="search_result">Search result</string>
     <string name="drug_details">Drug details</string>
     <string name="drugs_main">Drugs</string>
+    <string name="pill_identify">Pill Identificator</string>
 
 
     <!-- about dialog strings -->
@@ -34,4 +35,56 @@
     <!-- string for progress dialogs -->
     <string name="loading_db">Loading&#8230;</string>
     <string name="searching_db">Searching&#8230;</string>
+
+    <!-- fragment strings -->
+    <string name="option_color">Color:</string>
+    <string name="option_shape">Shape:</string>
+    <string-array name="colors">
+        <item>White</item>
+        <item>Beige</item>
+        <item>Black</item>
+        <item>Blue</item>
+        <item>Brown</item>
+        <item>Clear</item>
+        <item>Gold</item>
+        <item>Gray</item>
+        <item>Green</item>
+        <item>Maroon</item>
+        <item>Orange</item>
+        <item>Peach</item>
+        <item>Pink</item>
+        <item>Purple</item>
+        <item>Red</item>
+        <item>Tan</item>
+        <item>Yellow</item>
+        <item>Other&#8230;</item>
+    </string-array>
+    <string-array name="colors_hex">
+        <item>#FFFFFF</item>
+        <item>#F5F5DC</item>
+        <item>#000000</item>
+        <item>#0000FF</item>
+        <item>#663300</item>
+        <item>#FFFFFF</item>
+        <item>#CDAD00</item>
+        <item>#5B5B5B</item>
+        <item>#00FF00</item>
+        <item>#800000</item>
+        <item>#FFA500</item>
+        <item>#FFDAB9</item>
+        <item>#FFC0CB</item>
+        <item>#800080</item>
+        <item>#FF0000</item>
+        <item>#D2B48C</item>
+        <item>#FFFF00</item>
+        <item>#FFFFFF</item>
+    </string-array>
+    <string-array name="shapes">
+
+    </string-array>
+
+
+    <!-- Acttions activity buttons text -->
+    <string name="action_drugs">Medicine search &amp; information</string>
+    <string name="action_pill_identifier">Pill identifier</string>
 </resources>
