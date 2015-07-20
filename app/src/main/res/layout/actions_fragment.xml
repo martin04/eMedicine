@@ -20,10 +20,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@drawable/bckg_btn_gradient"
-        android:elevation="4dp"
+        android:elevation="5dp"
         android:padding="10dp"
         android:text="@string/action_drugs"
-        android:textColor="@color/primary_text"
+        android:textColor="@color/icons"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -39,10 +39,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="@drawable/bckg_btn_gradient"
-        android:elevation="4dp"
+        android:elevation="5dp"
         android:padding="10dp"
         android:text="@string/action_pill_identifier"
-        android:textColor="@color/primary_text"
+        android:textColor="@color/icons"
         android:textSize="16sp"
         android:textStyle="bold" />
 

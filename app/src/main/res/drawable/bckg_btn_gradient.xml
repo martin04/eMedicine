@@ -1,14 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<!--<selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
             <gradient
                 android:angle="45"
-                android:endColor="@color/icons"
-                android:centerColor="@color/accent"
-                android:startColor="@color/icons"
+                android:endColor="@color/primary"
+                android:centerColor="@color/primary"
+                android:startColor="@color/primary"
                 android:type="linear"
                 android:useLevel="true" />
         </shape>
     </item>
-</selector>
+</selector>-->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:bottom="1dp"
+        android:left="1dp"
+        android:right="1dp"
+        android:top="1dp">
+        <shape>
+            <solid android:color="@android:color/transparent" />
+            <stroke
+                android:width="2dp"
+                android:color="@color/primary"
+                android:dashGap="0px"
+                android:dashWidth="0px" />
+            <corners android:radius="4dp" />
+            <padding android:top="3dp" android:bottom="3dp" android:left="3dp" android:right="3dp"/>
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <gradient
+                android:angle="45"
+                android:endColor="@color/primary"
+                android:centerColor="@color/primary"
+                android:startColor="@color/primary"
+                android:type="linear"
+                android:useLevel="true" />
+        </shape>
+    </item>
+
+
+
+
+</layer-list>
