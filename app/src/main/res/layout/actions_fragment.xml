@@ -6,44 +6,61 @@
 
     <ImageView
         android:id="@+id/imgActions"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:adjustViewBounds="true"
         android:src="@drawable/ic_actions_img" />
 
-    <Button
-        android:id="@+id/btnDrugs"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cvDrugs"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgActions"
         android:layout_centerHorizontal="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/bckg_btn_gradient"
-        android:elevation="5dp"
-        android:padding="10dp"
-        android:text="@string/action_drugs"
-        android:textColor="@color/icons"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        card_view:cardBackgroundColor="@color/primary"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="7dp">
 
-    <Button
-        android:id="@+id/btnPill"
+        <Button
+            android:id="@+id/btnDrugs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:text="@string/action_drugs"
+            android:textColor="@color/icons"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cvPill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/btnDrugs"
-        android:layout_alignLeft="@+id/btnDrugs"
-        android:layout_alignRight="@+id/btnDrugs"
-        android:layout_alignStart="@+id/btnDrugs"
-        android:layout_below="@+id/btnDrugs"
+        android:layout_alignEnd="@+id/cvDrugs"
+        android:layout_alignLeft="@+id/cvDrugs"
+        android:layout_alignRight="@+id/cvDrugs"
+        android:layout_alignStart="@+id/cvDrugs"
+        android:layout_below="@+id/cvDrugs"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bckg_btn_gradient"
-        android:elevation="5dp"
-        android:padding="10dp"
-        android:text="@string/action_pill_identifier"
-        android:textColor="@color/icons"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:layout_marginTop="10dp"
+        card_view:cardBackgroundColor="@color/primary"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="7dp">
 
+        <Button
+            android:id="@+id/btnPill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:text="@string/action_pill_identifier"
+            android:textColor="@color/icons"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </android.support.v7.widget.CardView>
 </RelativeLayout>

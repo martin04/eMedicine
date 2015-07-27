@@ -27,5 +27,5 @@
     <color name="icons">#FFFFFF</color>
     <color name="divider">#B6B6B6</color>
 
-
+    <color name="rect_shadow">#33000000</color>
 </resources>
