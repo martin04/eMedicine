@@ -55,9 +55,6 @@ public class DrugDetailsActivity extends AppCompatActivity {
         switch (id) {
             case R.id.action_alarms:
                 return true;
-            case R.id.action_about:
-                showAbout();
-                break;
             case R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
@@ -88,22 +85,6 @@ public class DrugDetailsActivity extends AppCompatActivity {
         MenuInflater mi = getMenuInflater();
         mi.inflate(R.menu.menu_details, menu);
         return true;
-    }
-
-    //Function for creating the About dialog window
-    private void showAbout() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(DrugDetailsActivity.this);
-        builder.setTitle(R.string.about_title);
-        builder.setMessage(R.string.about_message);
-        builder.setCancelable(true);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.create();
-        builder.show();
     }
 
     //Function for creating the table rows for contraindications
