@@ -41,42 +41,30 @@
     <string name="option_color">Color:</string>
     <string name="option_shape">Shape:</string>
     <string-array name="colors">
-        <item>White</item>
-        <item>Beige</item>
-        <item>Black</item>
-        <item>Blue</item>
-        <item>Brown</item>
-        <item>Clear</item>
-        <item>Gold</item>
-        <item>Gray</item>
-        <item>Green</item>
-        <item>Maroon</item>
-        <item>Orange</item>
-        <item>Peach</item>
-        <item>Pink</item>
-        <item>Purple</item>
-        <item>Red</item>
-        <item>Tan</item>
-        <item>Yellow</item>
-        <item>Other&#8230;</item>
+        <item>BLACK</item>
+        <item>BLUE</item>
+        <item>BROWN</item>
+        <item>GRAY</item>
+        <item>GREEN</item>
+        <item>ORANGE</item>
+        <item>PINK</item>
+        <item>PURPLE</item>
+        <item>RED</item>
+        <item>TURQUOISE</item>
+        <item>YELLOW</item>
+        <item>WHITE</item>
     </string-array>
     <string-array name="colors_hex">
-        <item>#FFFFFF</item>
-        <item>#F5F5DC</item>
         <item>#000000</item>
         <item>#0000FF</item>
         <item>#663300</item>
-        <item>#FFFFFF</item>
-        <item>#CDAD00</item>
         <item>#5B5B5B</item>
         <item>#00FF00</item>
-        <item>#800000</item>
         <item>#FFA500</item>
-        <item>#FFDAB9</item>
-        <item>#FFC0CB</item>
+        <item>#ffb6c1</item>
         <item>#800080</item>
         <item>#FF0000</item>
-        <item>#D2B48C</item>
+        <item>#00e5ee</item>
         <item>#FFFF00</item>
         <item>#FFFFFF</item>
     </string-array>

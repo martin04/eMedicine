@@ -1,48 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/icons"
-    android:orientation="vertical">
+    android:background="@color/icons">
 
-    <TableRow
+    <ImageView
+        android:id="@+id/imgPillID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_colorful_pills" />
+
+    <LinearLayout
+        android:id="@+id/lColors"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:layout_below="@+id/imgPillID"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/txtColor"
+            android:id="@+id/txtColors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1.32"
+            android:gravity="center"
             android:text="@string/option_color"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/primary_text" />
+            android:textColor="@color/primary_text"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"/>
 
         <Spinner
             android:id="@+id/lstColors"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="500" />
+    </LinearLayout>
 
-        </Spinner>
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/lShapes"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:layout_alignEnd="@+id/lColors"
+        android:layout_alignLeft="@+id/lColors"
+        android:layout_alignRight="@+id/lColors"
+        android:layout_alignStart="@+id/lColors"
+        android:layout_below="@+id/lColors"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/txtShape"
+            android:id="@+id/txtShapes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1.32"
+            android:gravity="center"
             android:text="@string/option_shape"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/primary_text" />
+            android:textColor="@color/primary_text"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/lstShapes"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></Spinner>
-    </TableRow>
-
-</TableLayout>
+            android:layout_height="wrap_content"
+            android:layout_weight="500" />
+    </LinearLayout>
+</RelativeLayout>

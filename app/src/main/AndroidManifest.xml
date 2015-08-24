@@ -85,7 +85,8 @@
 
         <activity android:name=".PillIdActivity"
             android:label="@string/pill_identify"
-            android:theme="@style/Theme.MyCompatTheme"></activity>
+            android:theme="@style/Theme.MyCompatTheme"
+            android:screenOrientation="portrait"></activity>
 
 
     </application>
