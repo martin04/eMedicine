@@ -8,18 +8,18 @@
         android:id="@+id/imgColor"
         android:layout_width="50dip"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
         android:adjustViewBounds="true" />
 
     <TextView
         android:id="@+id/txtColorString"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="3dp"
         android:layout_marginLeft="3dp"
         android:layout_marginStart="3dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="3dp"
         android:gravity="center"
+        android:text="Black"
         android:textColor="@color/secondary_text"
         android:textSize="17sp" />
 </LinearLayout>

@@ -15,7 +15,7 @@
     <string name="search_result">Search result</string>
     <string name="drug_details">Drug details</string>
     <string name="drugs_main">Drugs</string>
-    <string name="pill_identify">Pill Identificator</string>
+    <string name="pill_identify">Pill Identifier</string>
 
 
     <!-- about dialog strings -->
@@ -38,9 +38,11 @@
     <string name="searching_db">Searching&#8230;</string>
 
     <!-- fragment strings -->
+    <string name="search">SEARCH</string>
     <string name="option_color">Color:</string>
     <string name="option_shape">Shape:</string>
     <string-array name="colors">
+        <item>Please select a color</item>
         <item>BLACK</item>
         <item>BLUE</item>
         <item>BROWN</item>
@@ -55,6 +57,7 @@
         <item>WHITE</item>
     </string-array>
     <string-array name="colors_hex">
+        <item>#012345</item>
         <item>#000000</item>
         <item>#0000FF</item>
         <item>#663300</item>
@@ -69,9 +72,49 @@
         <item>#FFFFFF</item>
     </string-array>
     <string-array name="shapes">
-
+        <item>Please select a shape</item>
+        <item>BULLET</item>
+        <item>CAPSULE</item>
+        <item>CLOVER</item>
+        <item>DIAMOND</item>
+        <item>DOUBLE CIRCLE</item>
+        <item>FREEFORM</item>
+        <item>GEAR</item>
+        <item>HEPTAGON</item>
+        <item>HEXAGON</item>
+        <item>OCTAGON</item>
+        <item>OVAL</item>
+        <item>PENTAGON</item>
+        <item>RECTANGLE</item>
+        <item>ROUND</item>
+        <item>SEMI-CIRCLE</item>
+        <item>SQUARE</item>
+        <item>TEAR</item>
+        <item>TRAPEZOID</item>
+        <item>TRIANGLE</item>
     </string-array>
-
+    <string-array name="shapes_images">
+        <item>@drawable/ic_info_outline_white_36dp</item>
+        <item>@drawable/ic_bullet</item>
+        <item>@drawable/ic_capsule</item>
+        <item>@drawable/ic_clover</item>
+        <item>@drawable/ic_diamond</item>
+        <item>@drawable/ic_double_circle</item>
+        <item>@drawable/ic_freeform</item>
+        <item>@drawable/ic_gear</item>
+        <item>@drawable/ic_heptagon</item>
+        <item>@drawable/ic_hexagon</item>
+        <item>@drawable/ic_octagon</item>
+        <item>@drawable/ic_oval</item>
+        <item>@drawable/ic_pentagon</item>
+        <item>@drawable/ic_rectangle</item>
+        <item>@drawable/ic_round</item>
+        <item>@drawable/ic_semi_circle</item>
+        <item>@drawable/ic_square</item>
+        <item>@drawable/ic_tear</item>
+        <item>@drawable/ic_trapezoid</item>
+        <item>@drawable/ic_triangle</item>
+    </string-array>
 
     <!-- Acttions activity buttons text -->
     <string name="action_drugs">Medicine search &amp; information</string>

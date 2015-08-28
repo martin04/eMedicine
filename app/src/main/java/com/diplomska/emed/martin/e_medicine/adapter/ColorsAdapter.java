@@ -56,7 +56,7 @@ public class ColorsAdapter extends ArrayAdapter<String> {
         ImageView hexColor = (ImageView) row.findViewById(R.id.imgColor);
 
         if (position == 0) {
-            name.setText("Please select a color");
+            name.setText(color.getName());
             hexColor.setVisibility(View.GONE);
         } else {
             name.setText(color.getName());

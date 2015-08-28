@@ -29,7 +29,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1.32"
-            android:gravity="center"
             android:text="@string/option_color"
             android:textColor="@color/primary_text"
             android:textSize="20sp"
@@ -40,7 +39,10 @@
             android:id="@+id/lstColors"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="500" />
+            android:layout_weight="500"
+            android:gravity="center"
+            android:scrollIndicators="right"
+            android:spinnerMode="dialog" />
     </LinearLayout>
 
     <LinearLayout
@@ -61,7 +63,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1.32"
-            android:gravity="center"
             android:text="@string/option_shape"
             android:textColor="@color/primary_text"
             android:textSize="20sp"
@@ -71,6 +72,35 @@
             android:id="@+id/lstShapes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="500" />
+            android:layout_weight="500"
+            android:gravity="center"
+            android:scrollIndicators="right"
+            android:spinnerMode="dialog"/>
     </LinearLayout>
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cvPill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/lShapes"
+        android:layout_alignLeft="@+id/lShapes"
+        android:layout_alignRight="@+id/lShapes"
+        android:layout_alignStart="@+id/lShapes"
+        android:layout_below="@+id/lShapes"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        card_view:cardBackgroundColor="@color/primary"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="7dp">
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="@string/search"
+            android:textColor="@drawable/btn_action_color_selector"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+    </android.support.v7.widget.CardView>
 </RelativeLayout>
