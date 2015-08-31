@@ -1,0 +1,101 @@
+package com.diplomska.emed.martin.e_medicine.task;
+
+import android.os.AsyncTask;
+
+import com.diplomska.emed.martin.e_medicine.interfaces.onPillIdTaskHandler;
+import com.diplomska.emed.martin.e_medicine.models.PillModel;
+
+import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Martin on 8/28/2015.
+ */
+public class PillIdTask extends AsyncTask<String, Void, List<PillModel>> {
+
+    private onPillIdTaskHandler listener;
+
+    public PillIdTask(onPillIdTaskHandler listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        listener.onPillIdStarted();
+    }
+
+    @Override
+    protected List<PillModel> doInBackground(String... params) {
+        try {
+            return jsonParser(readJsonFeed(params[0]));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    protected void onPostExecute(List<PillModel> pillModels) {
+        if (pillModels != null) {
+            listener.onPillIdResult(pillModels);
+        } else {
+            listener.onPillIdError("An error occurred, please try again.");
+        }
+    }
+
+    protected String readJsonFeed(String urlLink) {
+        try {
+            URL url = new URL(urlLink);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            // read the response
+            System.out.println("Response Code: " + conn.getResponseCode());
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+            return IOUtils.toString(in, "UTF-8");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    protected List<PillModel> jsonParser(String json) {
+        List<PillModel> pills = new ArrayList<>();
+        try {
+            JSONObject obj = new JSONObject(json).getJSONObject("replyStatus");
+            if (obj.getBoolean("success")) {
+                if (obj.getInt("totalImageCount") != 0) {
+                    JSONArray arr = new JSONObject(json).getJSONArray("nlmRxImages");
+                    for (int i = 0; i < arr.length(); i++) {
+                        JSONObject info = arr.getJSONObject(i);
+                        PillModel pill = new PillModel();
+                        pill.setRxcui(info.getInt("rxcui"));
+                        pill.setName(info.getString("name"));
+                        pill.setImgUrl(info.getString("imageUrl"));
+                        pills.add(pill);
+                    }
+                    return pills;
+                } else {
+                    listener.onPillIdNoResults();
+                    return pills;
+                }
+            } else {
+                listener.onPillIdError(obj.getString("errorMsg"));
+                return pills;
+            }
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+}

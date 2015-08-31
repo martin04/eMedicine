@@ -88,7 +88,7 @@
         android:layout_alignStart="@+id/lShapes"
         android:layout_below="@+id/lShapes"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         card_view:cardBackgroundColor="@color/primary"
         card_view:cardCornerRadius="4dp"
         card_view:cardElevation="7dp">

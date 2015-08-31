@@ -1,6 +1,8 @@
 package com.diplomska.emed.martin.e_medicine.fragments;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,7 +19,11 @@ import com.diplomska.emed.martin.e_medicine.adapter.ColorsAdapter;
 import com.diplomska.emed.martin.e_medicine.adapter.ShapesAdapter;
 import com.diplomska.emed.martin.e_medicine.models.ColorModel;
 import com.diplomska.emed.martin.e_medicine.models.ShapeModel;
+import com.diplomska.emed.martin.e_medicine.task.PillIdTask;
 
+import java.net.URL;
+import java.net.URLEncoder;
+import java.net.URLStreamHandlerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,7 +88,51 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        //startni Task za prebaruvanje so uri kako prv parametar
-        Toast.makeText(v.getContext(),"Poraka", Toast.LENGTH_SHORT).show();
+        String shape=((ShapeModel)shapeSpin.getSelectedItem()).getShape().toLowerCase();
+        if(shape.contains(" ")){
+            try {
+                shape = URLEncoder.encode(shape, "UTF-8");
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }
+        }
+        if (colorSpin.getSelectedItemPosition() == 0 && shapeSpin.getSelectedItemPosition() == 0) {
+            new AlertDialog.Builder(v.getContext())
+                    .setTitle(getString(R.string.warning_title))
+                    .setMessage(getString(R.string.color_shape_selection_msg))
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create()
+                    .show();
+        } else if (colorSpin.getSelectedItemPosition() != 0 && shapeSpin.getSelectedItemPosition() == 0) {
+            ResultFragment fragment = new ResultFragment();
+            Bundle args = new Bundle();
+            args.putString("url", "http://rximage.nlm.nih.gov/api/rximage/1/rxnav?color="
+                    +((ColorModel)colorSpin.getSelectedItem()).getName().toLowerCase());
+            fragment.setArguments(args);
+            getFragmentManager().beginTransaction().replace(R.id.tblSample, fragment).addToBackStack(null).commit();
+
+        } else if (colorSpin.getSelectedItemPosition() == 0) {
+            ResultFragment fragment = new ResultFragment();
+            Bundle args = new Bundle();
+            args.putString("url", "http://rximage.nlm.nih.gov/api/rximage/1/rxnav?shape="
+                    +shape);
+            fragment.setArguments(args);
+            getFragmentManager().beginTransaction().replace(R.id.tblSample, fragment).addToBackStack(null).commit();
+        } else {
+            ResultFragment fragment = new ResultFragment();
+            Bundle args = new Bundle();
+            args.putString("url", "http://rximage.nlm.nih.gov/api/rximage/1/rxnav?color="
+                    +((ColorModel)colorSpin.getSelectedItem()).getName().toLowerCase()+
+                    "&shape="
+                    +shape);
+            fragment.setArguments(args);
+            getFragmentManager().beginTransaction().replace(R.id.tblSample, fragment).addToBackStack(null).commit();
+        }
+
     }
 }

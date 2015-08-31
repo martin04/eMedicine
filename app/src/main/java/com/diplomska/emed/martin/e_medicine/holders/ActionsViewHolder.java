@@ -33,7 +33,7 @@ public class ActionsViewHolder extends RecyclerView.ViewHolder implements View.O
     @Override
     public void onClick(View v) {
         Context ctx = itemView.getContext();
-        int position = getPosition();
+        int position = getAdapterPosition();
         switch (position) {
             case 0:
                 Intent intent = new Intent(ctx, MainActivity.class);

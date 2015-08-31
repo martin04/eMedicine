@@ -49,7 +49,7 @@ public class DrugNameViewHolder extends RecyclerView.ViewHolder implements View.
     @Override
     public void onClick(View v) {
         Context ctx = itemView.getContext();
-        int pos = getPosition();
+        int pos = getAdapterPosition();
         String code = "";
 
         if (v instanceof ImageButton) {

@@ -19,5 +19,6 @@
     <dimen name="top_margin">10dp</dimen>
     <dimen name="bottom_margin">9dp</dimen>
 
-
+    <!-- text sizes -->
+    <dimen name="details_btn_text">16sp</dimen>
 </resources>

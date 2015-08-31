@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted, 
 
         overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 
+        System.setProperty("http.keepAlive","false");
+
         assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
