@@ -1,6 +1,7 @@
 package com.diplomska.emed.martin.e_medicine.task;
 
 import android.os.AsyncTask;
+import android.text.TextUtils;
 
 import com.diplomska.emed.martin.e_medicine.interfaces.onPillIdTaskHandler;
 import com.diplomska.emed.martin.e_medicine.models.PillModel;
@@ -80,7 +81,7 @@ public class PillIdTask extends AsyncTask<String, Void, List<PillModel>> {
                         JSONObject info = arr.getJSONObject(i);
                         PillModel pill = new PillModel();
                         pill.setRxcui(info.getInt("rxcui"));
-                        pill.setName(info.getString("name"));
+                        pill.setName(TextUtils.isEmpty(info.getString("name")) ? "Unknown" : info.getString("name"));
                         pill.setImgUrl(info.getString("imageUrl"));
                         pills.add(pill);
                     }
