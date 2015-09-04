@@ -2,6 +2,7 @@ package com.diplomska.emed.martin.e_medicine.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,11 @@ public class PillsAdapter extends RecyclerView.Adapter<PillsViewHolder> {
     @Override
     public void onBindViewHolder(PillsViewHolder holder, int position) {
         PillModel pill = pills.get(position);
-        Picasso.with(viewGroup.getContext()).load(pill.getImgUrl()).into(holder.imgPill);
+        if (TextUtils.isEmpty(pill.getImgUrl())) {
+            Picasso.with(viewGroup.getContext()).load(R.drawable.no_image).into(holder.imgPill);
+        } else {
+            Picasso.with(viewGroup.getContext()).load(pill.getImgUrl()).into(holder.imgPill);
+        }
         holder.pillName.setText(pill.getName());
     }
 

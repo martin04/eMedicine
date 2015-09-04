@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/icons">
+    android:background="@color/primary_background">
 
     <ImageView
         android:id="@+id/imgActions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:adjustViewBounds="true"
         android:src="@drawable/ic_actions_img" />
 
@@ -48,7 +48,8 @@
         android:layout_alignStart="@+id/cvDrugs"
         android:layout_below="@+id/cvDrugs"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="100dp"
         card_view:cardBackgroundColor="@color/primary"
         card_view:cardCornerRadius="4dp"
         card_view:cardElevation="7dp">
@@ -56,11 +57,11 @@
         <Button
             android:id="@+id/btnPill"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="?android:attr/selectableItemBackground"
             android:text="@string/action_pill_identifier"
             android:textColor="@drawable/btn_action_color_selector"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
     </android.support.v7.widget.CardView>
 </RelativeLayout>
