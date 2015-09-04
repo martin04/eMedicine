@@ -2,8 +2,17 @@ package com.diplomska.emed.martin.e_medicine.fragments;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.diplomska.emed.martin.e_medicine.PillIdActivity;
 import com.diplomska.emed.martin.e_medicine.R;
 import com.diplomska.emed.martin.e_medicine.adapter.PillsAdapter;
 import com.diplomska.emed.martin.e_medicine.interfaces.onPillIdTaskHandler;
@@ -36,6 +46,11 @@ public class ResultFragment extends Fragment implements onPillIdTaskHandler {
     private ProgressDialog pDialog;
     private TextView txtNoRes;
 
+    private ConnectivityManager cm;
+    private NetworkInfo ni;
+
+    private boolean dataFilled;
+
     public ResultFragment() {
     }
 
@@ -53,16 +68,28 @@ public class ResultFragment extends Fragment implements onPillIdTaskHandler {
         Bundle args = getArguments();
         String url = args.getString("url");
 
-        if (url != null) {
-            try {
-                new PillIdTask(this).execute(url);
-            } catch (Exception ex) {
-                ex.printStackTrace();
+        dataFilled = false;
+
+        cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ni = cm.getActiveNetworkInfo();
+        boolean isConnected = ni != null && ni.isConnectedOrConnecting();
+        if (!isConnected) {
+            dataFilled = false;
+            connectionDialog();
+        } else {
+            if (url != null) {
+                try {
+                    dataFilled = true;
+                    new PillIdTask(this).execute(url);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         }
 
         return v;
     }
+
 
     @Override
     public void onPillIdStarted() {
@@ -91,4 +118,27 @@ public class ResultFragment extends Fragment implements onPillIdTaskHandler {
         pDialog.dismiss();
     }
 
+    private void connectionDialog() {
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.connection_title)
+                .setMessage(R.string.connection_message)
+                .setNegativeButton(R.string.connection_cancel_dialog, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        getFragmentManager().popBackStack();
+                    }
+                })
+                .setPositiveButton(R.string.connection_ok_dialog, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+                        //startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                        startActivity(new Intent(Settings.ACTION_SETTINGS));
+
+                    }
+                })
+                .create()
+                .show();
+    }
 }

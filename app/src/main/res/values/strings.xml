@@ -124,4 +124,10 @@
     <!-- Acttions activity buttons text -->
     <string name="action_drugs">Medicine search &amp; information</string>
     <string name="action_pill_identifier">Pill identifier</string>
+
+    <!-- connection check strings -->
+    <string name="connection_title">Check connection</string>
+    <string name="connection_message">Please turn on Wi-Fi or Mobile Data.</string>
+    <string name="connection_cancel_dialog">Cancel</string>
+    <string name="connection_ok_dialog">Connect</string>
 </resources>
