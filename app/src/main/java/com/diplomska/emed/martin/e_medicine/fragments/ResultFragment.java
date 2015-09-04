@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -49,8 +50,8 @@ public class ResultFragment extends Fragment implements onPillIdTaskHandler {
         manager = new LinearLayoutManager(getActivity());
         recPills.setLayoutManager(manager);
 
-        Bundle args=getArguments();
-        String url=args.getString("url");
+        Bundle args = getArguments();
+        String url = args.getString("url");
 
         if (url != null) {
             try {
@@ -89,4 +90,5 @@ public class ResultFragment extends Fragment implements onPillIdTaskHandler {
         Toast.makeText(getActivity().getApplicationContext(), errMsg, Toast.LENGTH_LONG).show();
         pDialog.dismiss();
     }
+
 }

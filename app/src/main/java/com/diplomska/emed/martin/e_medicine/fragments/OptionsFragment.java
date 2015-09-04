@@ -114,7 +114,7 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
             args.putString("url", "http://rximage.nlm.nih.gov/api/rximage/1/rxnav?color="
                     +((ColorModel)colorSpin.getSelectedItem()).getName().toLowerCase());
             fragment.setArguments(args);
-            getFragmentManager().beginTransaction().replace(R.id.tblSample, fragment).addToBackStack(null).commit();
+            getFragmentManager().beginTransaction().replace(R.id.tblSample, fragment,"result").addToBackStack(null).commit();
 
         } else if (colorSpin.getSelectedItemPosition() == 0) {
             ResultFragment fragment = new ResultFragment();
@@ -122,7 +122,7 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
             args.putString("url", "http://rximage.nlm.nih.gov/api/rximage/1/rxnav?shape="
                     +shape);
             fragment.setArguments(args);
-            getFragmentManager().beginTransaction().replace(R.id.tblSample, fragment).addToBackStack(null).commit();
+            getFragmentManager().beginTransaction().replace(R.id.tblSample, fragment,"result").addToBackStack(null).commit();
         } else {
             ResultFragment fragment = new ResultFragment();
             Bundle args = new Bundle();
@@ -131,7 +131,7 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
                     "&shape="
                     +shape);
             fragment.setArguments(args);
-            getFragmentManager().beginTransaction().replace(R.id.tblSample, fragment).addToBackStack(null).commit();
+            getFragmentManager().beginTransaction().replace(R.id.tblSample, fragment,"result").addToBackStack(null).commit();
         }
 
     }

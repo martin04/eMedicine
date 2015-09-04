@@ -47,7 +47,11 @@ public class PillIdTask extends AsyncTask<String, Void, List<PillModel>> {
     @Override
     protected void onPostExecute(List<PillModel> pillModels) {
         if (pillModels != null) {
-            listener.onPillIdResult(pillModels);
+            if (pillModels.size() == 0) {
+                listener.onPillIdNoResults();
+            } else {
+                listener.onPillIdResult(pillModels);
+            }
         } else {
             listener.onPillIdError("An error occurred, please try again.");
         }
@@ -87,7 +91,7 @@ public class PillIdTask extends AsyncTask<String, Void, List<PillModel>> {
                     }
                     return pills;
                 } else {
-                    listener.onPillIdNoResults();
+//                    listener.onPillIdNoResults();
                     return pills;
                 }
             } else {

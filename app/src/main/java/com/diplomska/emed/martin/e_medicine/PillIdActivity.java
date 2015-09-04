@@ -1,13 +1,16 @@
 package com.diplomska.emed.martin.e_medicine;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.VoiceInteractor;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.diplomska.emed.martin.e_medicine.fragments.OptionsFragment;
+import com.diplomska.emed.martin.e_medicine.fragments.ResultFragment;
 
 /**
  * Created by Martin on 06-Jul-15.
@@ -22,7 +25,7 @@ public class PillIdActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         OptionsFragment fragment = new OptionsFragment();
-        getFragmentManager().beginTransaction().replace(R.id.tblSample, fragment).commit();
+        getFragmentManager().beginTransaction().replace(R.id.tblSample, fragment, "options").addToBackStack(null).commit();
     }
 
     @Override
@@ -32,10 +35,19 @@ public class PillIdActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.home){
+        if (item.getItemId() == R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().findFragmentByTag("result") != null) {
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

@@ -29,7 +29,8 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:contentDescription="@string/content_desc"
-                android:src="@drawable/ic_info_outline_black_36dp" />
+                android:src="@drawable/ic_info_outline_black_36dp"
+                android:background="@drawable/actions_border"/>
 
 
             <TextView
@@ -81,7 +82,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/alarm_right_margin"
                 android:layout_marginRight="@dimen/alarm_right_margin"
-                android:background="@android:color/transparent"
+                android:background="@drawable/alarm_border"
                 android:contentDescription="@string/content_desc"
                 android:src="@drawable/ic_alarm_add_black_36dp" />
 
