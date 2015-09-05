@@ -4,7 +4,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.Menu;
@@ -13,6 +16,12 @@ import android.view.MenuItem;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.diplomska.emed.martin.e_medicine.adapter.DrugViewPagerAdapter;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Martin on 29-Jun-15.
@@ -27,6 +36,11 @@ public class DrugDetailsActivity extends AppCompatActivity {
     private TextView contraDesc;
     private TextView adviceDesc;
 
+    private TabLayout tabs;
+    private ViewPager pager;
+    private DrugViewPagerAdapter adapter;
+    private ArrayList<String> names = new ArrayList<>(Arrays.asList("Contraindications", "Advices", "Reminders"));
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,15 +49,22 @@ public class DrugDetailsActivity extends AppCompatActivity {
         //must check if null
         assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setElevation(0);
 
         overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 
         intent = getIntent();
+        getSupportActionBar().setTitle(intent.getStringExtra("name"));
 
-        drugName = (TextView) findViewById(R.id.txtName);
-        drugName.setText(intent.getStringExtra("name"));
-        fillTblContra(intent.getStringArrayExtra("contraindications"));
-        fillTblAdvices(intent.getStringArrayExtra("advices"));
+        adapter = new DrugViewPagerAdapter(getSupportFragmentManager(), names, 3, intent.getStringArrayExtra("contraindications"), intent.getStringArrayExtra("advices"));
+        pager = (ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(adapter);
+        tabs = (TabLayout) findViewById(R.id.tabs);
+        tabs.addTab(tabs.newTab().setText("Contraindications"));
+        tabs.addTab(tabs.newTab().setText("Advices"));
+        tabs.addTab(tabs.newTab().setText("Reminders"));
+        tabs.setTabTextColors(ContextCompat.getColor(this, R.color.icons), ContextCompat.getColor(this, R.color.icons));
+        tabs.setupWithViewPager(pager);
 
     }
 
@@ -85,39 +106,5 @@ public class DrugDetailsActivity extends AppCompatActivity {
         MenuInflater mi = getMenuInflater();
         mi.inflate(R.menu.menu_details, menu);
         return true;
-    }
-
-    //Function for creating the table rows for contraindications
-    private void fillTblContra(String[] contra) {
-        tableContra = (TableLayout) findViewById(R.id.tblContra);
-
-        for (int i = 0; i < contra.length; i++) {
-            TableRow row = new TableRow(this);
-            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT);
-            row.setLayoutParams(lp);
-            contraDesc = new TextView(this);
-            contraDesc.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
-                    TableRow.LayoutParams.WRAP_CONTENT));
-            contraDesc.setText(Html.fromHtml("&#183;") + " " + contra[i]);
-            row.addView(contraDesc);
-            tableContra.addView(row, i);
-        }
-    }
-
-    //Function for creating the table rows for advices
-    private void fillTblAdvices(String[] adv) {
-        tableAdvice = (TableLayout) findViewById(R.id.tblAdvice);
-
-        for (int i = 0; i < adv.length; i++) {
-            TableRow row = new TableRow(this);
-            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT);
-            row.setLayoutParams(lp);
-            adviceDesc = new TextView(this);
-            adviceDesc.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
-                    TableRow.LayoutParams.WRAP_CONTENT));
-            adviceDesc.setText(Html.fromHtml("&#183;") + " " + adv[i]);
-            row.addView(adviceDesc);
-            tableAdvice.addView(row, i);
-        }
     }
 }

@@ -25,10 +25,8 @@
     <!-- about dialog strings -->
     <string name="about_title">E-Medicine</string>
     <string name="about_message">
-        Medical app that will give you information on contraindications and advise You what to consume or not.
-        The information is taken from real data sets containing information about drugs, contraindications and advises.
-        Take in mind that this is only INFORMATION not a total diagnosis or some medical advise.
-        Consult your doctor about everything!
+        A medical application that will give you information on contraindications and advise You what to consume or not.\n\nThe information is taken from real data sets containing information about drugs, contraindications and advises.\n
+        \nTake in mind that this is only an INFORMATION not a total diagnosis or other medical advise.\n\nConsult your doctor about everything!
     </string>
 
     <!-- details dialog strings -->
@@ -127,7 +125,7 @@
 
     <!-- connection check strings -->
     <string name="connection_title">Check connection</string>
-    <string name="connection_message">Please turn on Wi-Fi or Mobile Data.</string>
+    <string name="connection_message">Could not connect to server.</string>
     <string name="connection_cancel_dialog">Cancel</string>
     <string name="connection_ok_dialog">Connect</string>
 </resources>

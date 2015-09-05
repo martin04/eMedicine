@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.diplomska.emed.martin.e_medicine.R;
+import com.diplomska.emed.martin.e_medicine.interfaces.onPillIdDetailsHandler;
 
 /**
  * Created by Martin on 8/28/2015.
@@ -16,18 +17,21 @@ public class PillsViewHolder extends RecyclerView.ViewHolder implements View.OnC
     public ImageView imgPill;
     public TextView pillName;
     public Button btnDetails;
+    private onPillIdDetailsHandler listener;
 
-    public PillsViewHolder(View itemView) {
+    public PillsViewHolder(View itemView, onPillIdDetailsHandler listener) {
         super(itemView);
 
         imgPill = (ImageView) itemView.findViewById(R.id.imgPill);
         pillName = (TextView) itemView.findViewById(R.id.pillName);
         btnDetails = (Button) itemView.findViewById(R.id.btnDetails);
         btnDetails.setOnClickListener(this);
+
+        this.listener = listener;
     }
 
     @Override
     public void onClick(View v) {
-        //here handle click for Details
+        listener.onDetailsClicked(v.getContext(),getAdapterPosition());
     }
 }

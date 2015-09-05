@@ -61,7 +61,7 @@ public class PillIdActivity extends AppCompatActivity {
         super.onRestart();
         if(getFragmentManager().findFragmentByTag("result") != null){
             ResultFragment res=(ResultFragment)getFragmentManager().findFragmentByTag("result");
-            getFragmentManager().beginTransaction().detach(res).attach(res).addToBackStack(null).commit();
+            getFragmentManager().beginTransaction().detach(res).attach(res).commit();
         }
     }
 }

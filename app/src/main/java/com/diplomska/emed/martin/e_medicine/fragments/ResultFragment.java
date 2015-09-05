@@ -127,6 +127,7 @@ public class ResultFragment extends Fragment implements onPillIdTaskHandler {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         getFragmentManager().popBackStack();
+                        //getFragmentManager().beginTransaction().replace(android.R.id.content,new OptionsFragment()).commit();
                     }
                 })
                 .setPositiveButton(R.string.connection_ok_dialog, new DialogInterface.OnClickListener() {

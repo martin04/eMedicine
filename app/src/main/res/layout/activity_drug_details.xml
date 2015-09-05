@@ -1,4 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_scrollFlags="scroll|enterAlways"
+        android:background="@color/primary"
+        android:elevation="4dp"
+        app:tabIndicatorColor="@color/accent"
+        app:tabIndicatorHeight="4dp"
+        android:paddingTop="3dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingEnd="5dp">
+    </android.support.design.widget.TabLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_weight="1">
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>
+<!--
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scrView"
     android:layout_width="match_parent"
@@ -35,6 +67,7 @@
             android:id="@+id/tblContra"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/txtContraindications"
             android:layout_alignStart="@id/txtContraindications"
             android:layout_below="@+id/txtContraindications"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
@@ -59,6 +92,7 @@
             android:id="@+id/tblAdvice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/txtAdvices"
             android:layout_alignStart="@id/txtAdvices"
             android:layout_below="@+id/txtAdvices"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
@@ -71,3 +105,4 @@
     </RelativeLayout>
 
 </ScrollView>
+-->
