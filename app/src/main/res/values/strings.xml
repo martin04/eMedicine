@@ -33,6 +33,10 @@
     <string name="details_title">Drug details</string>
     <string name="contraindication_tag">&#187; Contraindications:</string>
     <string name="advice_tag">&#187; Advices:</string>
+    <string name="create_alarm">Set reminder</string>
+    <string name="how_many_times">How many times a day you will take the medicine?</string>
+    <string name="number_pills">How many pills?</string>
+    <string name="set_alarm_btn">Set</string>
 
 
     <!-- string for progress dialogs -->

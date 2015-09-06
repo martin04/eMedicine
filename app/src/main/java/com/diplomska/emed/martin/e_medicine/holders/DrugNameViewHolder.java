@@ -14,6 +14,7 @@ import com.diplomska.emed.martin.e_medicine.DrugDetailsActivity;
 import com.diplomska.emed.martin.e_medicine.R;
 import com.diplomska.emed.martin.e_medicine.adapter.AdviseAdapter;
 import com.diplomska.emed.martin.e_medicine.adapter.ContraindicationAdapter;
+import com.diplomska.emed.martin.e_medicine.interfaces.onAlarmCreated;
 
 
 /**
@@ -30,8 +31,9 @@ public class DrugNameViewHolder extends RecyclerView.ViewHolder implements View.
 
     private ContraindicationAdapter ca;
     private AdviseAdapter aa;
+    private onAlarmCreated listener;
 
-    public DrugNameViewHolder(View itemView) {
+    public DrugNameViewHolder(View itemView, onAlarmCreated listener) {
         super(itemView);
 
         pills = (ImageView) itemView.findViewById(R.id.imgPill);
@@ -39,6 +41,8 @@ public class DrugNameViewHolder extends RecyclerView.ViewHolder implements View.
         genericName = (TextView) itemView.findViewById(R.id.txtGeneric);
         latinName = (TextView) itemView.findViewById(R.id.txtLatin);
         drugCode = (TextView) itemView.findViewById(R.id.txtCode);
+
+        this.listener = listener;
 
         pills.setOnClickListener(this);
         alarm.setOnClickListener(this);
@@ -54,13 +58,13 @@ public class DrugNameViewHolder extends RecyclerView.ViewHolder implements View.
 
         if (v instanceof ImageButton) {
             //ovde sredi so alarmi rabota
-            Toast.makeText(ctx, "Button " + pos + " Clicked", Toast.LENGTH_SHORT).show();
-
-            Intent intent=new Intent(AlarmClock.ACTION_SET_ALARM);
-            intent.putExtra(AlarmClock.EXTRA_MESSAGE,latinName.getText().toString());
-            intent.putExtra(AlarmClock.EXTRA_HOUR,15);
-            intent.putExtra(AlarmClock.EXTRA_MINUTES,22);
-            ctx.startActivity(intent);
+            listener.createAlarm(ctx, latinName.getText().toString());
+            /*
+            Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM);
+            intent.putExtra(AlarmClock.EXTRA_MESSAGE, latinName.getText().toString());
+            intent.putExtra(AlarmClock.EXTRA_HOUR, 15);
+            intent.putExtra(AlarmClock.EXTRA_MINUTES, 22);
+            ctx.startActivity(intent);*/
 
         } else {
             code = drugCode.getText().toString();
