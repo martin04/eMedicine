@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.AlarmClock;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted, 
         int id = item.getItemId();
         switch (id) {
             case R.id.action_alarms:
+                startActivity(new Intent(AlarmClock.ACTION_SET_ALARM));
                 return true;
             case R.id.action_about:
                 showAbout();
