@@ -39,7 +39,7 @@ public class DrugDetailsActivity extends AppCompatActivity {
     private TabLayout tabs;
     private ViewPager pager;
     private DrugViewPagerAdapter adapter;
-    private ArrayList<String> names = new ArrayList<>(Arrays.asList("Contraindications", "Advices", "Reminders"));
+    private ArrayList<String> names = new ArrayList<>(Arrays.asList("Contra-indications", "Advices", "Reminders"));
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,9 +60,9 @@ public class DrugDetailsActivity extends AppCompatActivity {
         pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
         tabs = (TabLayout) findViewById(R.id.tabs);
-        tabs.addTab(tabs.newTab().setText("Contraindications"));
-        tabs.addTab(tabs.newTab().setText("Advices"));
-        tabs.addTab(tabs.newTab().setText("Reminders"));
+        tabs.addTab(tabs.newTab().setText(getString(R.string.tab_contra)));
+        tabs.addTab(tabs.newTab().setText(getString(R.string.tab_advice)));
+        tabs.addTab(tabs.newTab().setText(getString(R.string.tab_reminders)));
         tabs.setTabTextColors(ContextCompat.getColor(this, R.color.icons), ContextCompat.getColor(this, R.color.icons));
         tabs.setupWithViewPager(pager);
 

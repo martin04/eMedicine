@@ -38,7 +38,7 @@ public class PillIdActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
             return true;

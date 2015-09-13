@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">10dp</dimen>
+    <dimen name="activity_vertical_margin">10dp</dimen>
+    <dimen name="main_activity_margin_hor">5dp</dimen>
+    <dimen name="main_activity_margin_ver">5dp</dimen>
+
+    <!-- view dimensions -->
+    <dimen name="generic_left_margin">20dp</dimen>
+    <dimen name="generic_top_margin">2dp</dimen>
+
+    <dimen name="latin_left_margin">55dp</dimen>
+
+    <dimen name="alarm_right_margin">10dp</dimen>
+
+    <!-- action item margins -->
+    <dimen name="left_margin">30dp</dimen>
+    <dimen name="right_margin">30dp</dimen>
+    <dimen name="top_margin">10dp</dimen>
+    <dimen name="bottom_margin">9dp</dimen>
+
+    <!-- text sizes -->
+    <dimen name="details_btn_text">16sp</dimen>
+</resources>

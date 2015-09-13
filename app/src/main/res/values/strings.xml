@@ -21,6 +21,11 @@
     <string name="drugs_main">Drugs</string>
     <string name="pill_identify">Pill Identifier</string>
 
+    <!-- tab strings -->
+    <string name="tab_contra">Contraindications</string>
+    <string name="tab_advice">Advices</string>
+    <string name="tab_reminders">Reminders</string>
+
 
     <!-- about dialog strings -->
     <string name="about_title">E-Medicine</string>

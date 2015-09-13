@@ -8,9 +8,12 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.diplomska.emed.martin.e_medicine.adapter.ActionsAdapter;
 import com.diplomska.emed.martin.e_medicine.fragments.ActionsFragment;
