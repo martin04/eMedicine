@@ -22,9 +22,9 @@
     <string name="pill_identify">Pill Identifier</string>
 
     <!-- tab strings -->
-    <string name="tab_contra">Contraindications</string>
+    <string name="tab_contra">Contra-indications</string>
     <string name="tab_advice">Advices</string>
-    <string name="tab_reminders">Reminders</string>
+    <string name="tab_alt_names">Alternative-names</string>
 
 
     <!-- about dialog strings -->

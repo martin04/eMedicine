@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.diplomska.emed.martin.e_medicine.fragments.AdvicesFragment;
 import com.diplomska.emed.martin.e_medicine.fragments.ContraindicationsFragment;
-import com.diplomska.emed.martin.e_medicine.fragments.RemindersFragment;
+import com.diplomska.emed.martin.e_medicine.fragments.AltNamesFragment;
 
 import java.util.ArrayList;
 
@@ -20,13 +20,15 @@ public class DrugViewPagerAdapter extends FragmentStatePagerAdapter {
     private int numOfTabs;
     private String[] contra;
     private String[] adv;
+    private String[] altNames;
 
-    public DrugViewPagerAdapter(FragmentManager fm, ArrayList<String> names, int numOfTabs, String[] contra, String[] adv) {
+    public DrugViewPagerAdapter(FragmentManager fm, ArrayList<String> names, int numOfTabs, String[] contra, String[] adv, String[] altNames) {
         super(fm);
         this.names = names;
         this.numOfTabs = numOfTabs;
         this.contra = contra;
         this.adv = adv;
+        this.altNames = altNames;
     }
 
     @Override
@@ -52,8 +54,11 @@ public class DrugViewPagerAdapter extends FragmentStatePagerAdapter {
                 return af;
 
             case 2:
-                RemindersFragment rf = new RemindersFragment();
-                return new RemindersFragment();
+                Bundle anf=new Bundle();
+                anf.putStringArray("alt_names", altNames);
+                AltNamesFragment rf = new AltNamesFragment();
+                rf.setArguments(anf);
+                return rf;
         }
         return new ContraindicationsFragment();
     }
