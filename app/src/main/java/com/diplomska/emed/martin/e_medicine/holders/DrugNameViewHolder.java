@@ -57,15 +57,7 @@ public class DrugNameViewHolder extends RecyclerView.ViewHolder implements View.
         String code = "";
 
         if (v instanceof ImageButton) {
-            //ovde sredi so alarmi rabota
             listener.createAlarm(ctx, latinName.getText().toString());
-            /*
-            Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM);
-            intent.putExtra(AlarmClock.EXTRA_MESSAGE, latinName.getText().toString());
-            intent.putExtra(AlarmClock.EXTRA_HOUR, 15);
-            intent.putExtra(AlarmClock.EXTRA_MINUTES, 22);
-            ctx.startActivity(intent);*/
-
         } else {
             code = drugCode.getText().toString();
             String[] contraindications = getContraindications(ctx, code).split("\n");

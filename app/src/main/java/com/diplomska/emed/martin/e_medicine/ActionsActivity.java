@@ -29,6 +29,8 @@ public class ActionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actions);
 
+        System.setProperty("http.keepAlive", "false");
+
         ActionsFragment fragment = new ActionsFragment();
         getFragmentManager().beginTransaction().replace(R.id.lstActions, fragment).addToBackStack(null).commit();
 

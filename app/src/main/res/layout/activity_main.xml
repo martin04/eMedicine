@@ -13,5 +13,13 @@
         android:scrollbars="vertical">
 
     </android.support.v7.widget.RecyclerView>
-
+    <TextView
+        android:id="@+id/txtNoResult"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/no_results"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/secondary_text"
+        android:visibility="gone"/>
 </RelativeLayout>
