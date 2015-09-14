@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -76,7 +77,8 @@ public class DrugNameAdapter extends RecyclerView.Adapter<DrugNameViewHolder> im
         //ovde dialog so toa kolku pati ke se konzumira dnevno
         final String drugName = name;
         final Dialog dialog = new Dialog(ctx);
-        dialog.setTitle(ctx.getString(R.string.create_alarm));
+        //dialog.setTitle(ctx.getString(R.string.create_alarm));
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.set_reminder_layout);
         final EditText editTimesADay = (EditText) dialog.findViewById(R.id.editTimes);
         EditText editNumberOfPills = (EditText) dialog.findViewById(R.id.editNumberPills);

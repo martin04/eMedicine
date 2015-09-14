@@ -85,11 +85,11 @@ public class DailymedTask extends AsyncTask<String, Void, List<Drug>> {
                 d.setCode("");
                 if(!obj.getString("drug_name").equalsIgnoreCase("-")) {
                     if (obj.getString("name_type").equalsIgnoreCase("G")) {
-                        d.setGeneric_name(obj.getString("drug_name").replace("(", "").replace(")", "").replace("-", " "));
+                        d.setGeneric_name(obj.getString("drug_name").replace("(", "").replace(")", "").replace("-", " ").replace(".",""));
                         d.setLatin_name("");
                     } else {
                         d.setGeneric_name("");
-                        d.setLatin_name(obj.getString("drug_name").replace("(", "").replace(")", "").replace("-", " "));
+                        d.setLatin_name(obj.getString("drug_name").replace("(", "").replace(")", "").replace("-", " ").replace(".",""));
                     }
                 }else{
                     d.setGeneric_name("Name not available");

@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="@dimen/top_margin">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/txtHowMany"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtTitle"
+        android:layout_margin="@dimen/top_margin"
+        android:text="@string/how_many_times"
+        android:textAppearance="?attr/textAppearanceLargePopupMenu" />
+
+    <TextView
+        android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -13,8 +21,12 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="@string/how_many_times"
-        android:textAppearance="?attr/textAppearanceLargePopupMenu" />
+        android:background="@color/primary"
+        android:padding="10dp"
+        android:text="@string/create_alarm"
+        android:textAppearance="?attr/textAppearanceSearchResultTitle"
+        android:textColor="@color/icons" />
+
 
     <EditText
         android:id="@+id/editTimes"
@@ -23,6 +35,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/txtHowMany"
+        android:layout_marginLeft="@dimen/top_margin"
+        android:layout_marginStart="@dimen/top_margin"
         android:ems="5"
         android:inputType="number" />
 
@@ -35,6 +49,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/editTimes"
+        android:layout_margin="@dimen/top_margin"
         android:layout_marginTop="@dimen/top_margin"
         android:text="@string/number_pills"
         android:textAppearance="?attr/textAppearanceLargePopupMenu" />
@@ -46,6 +61,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/txtHowManyPills"
+        android:layout_marginLeft="@dimen/top_margin"
+        android:layout_marginStart="@dimen/top_margin"
         android:ems="5"
         android:inputType="number" />
 
