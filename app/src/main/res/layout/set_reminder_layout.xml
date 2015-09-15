@@ -4,15 +4,6 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/txtHowMany"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtTitle"
-        android:layout_margin="@dimen/top_margin"
-        android:text="@string/how_many_times"
-        android:textAppearance="?attr/textAppearanceLargePopupMenu" />
-
-    <TextView
         android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,55 +18,11 @@
         android:textAppearance="?attr/textAppearanceSearchResultTitle"
         android:textColor="@color/icons" />
 
-
-    <EditText
-        android:id="@+id/editTimes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtHowMany"
-        android:layout_marginLeft="@dimen/top_margin"
-        android:layout_marginStart="@dimen/top_margin"
-        android:ems="5"
-        android:inputType="number" />
-
-    <TextView
-        android:id="@+id/txtHowManyPills"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/editTimes"
-        android:layout_margin="@dimen/top_margin"
-        android:layout_marginTop="@dimen/top_margin"
-        android:text="@string/number_pills"
-        android:textAppearance="?attr/textAppearanceLargePopupMenu" />
-
-    <EditText
-        android:id="@+id/editNumberPills"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtHowManyPills"
-        android:layout_marginLeft="@dimen/top_margin"
-        android:layout_marginStart="@dimen/top_margin"
-        android:ems="5"
-        android:inputType="number" />
-
     <LinearLayout
         android:id="@+id/btnLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/editNumberPills"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
@@ -106,8 +53,91 @@
             android:textAllCaps="true"
             android:textAppearance="?attr/textAppearanceLargePopupMenu"
             android:textColor="@color/icons" />
-
-
     </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnLayout"
+        android:layout_below="@+id/txtTitle">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/timeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/checkTimePicker"
+                android:layout_margin="@dimen/top_margin">
+
+                <TimePicker
+                    android:id="@+id/startTimePicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:timePickerMode="spinner" />
+            </RelativeLayout>
+
+
+            <CheckBox
+                android:id="@+id/checkTimePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/primary"
+                android:text="@string/custom_start_time"
+                android:textAppearance="?attr/textAppearanceLargePopupMenu"
+                android:layout_marginTop="@dimen/top_margin"/>
+
+            <TextView
+                android:id="@+id/txtHowMany"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/timeLayout"
+                android:layout_margin="@dimen/top_margin"
+                android:text="@string/how_many_times"
+                android:textAppearance="?attr/textAppearanceLargePopupMenu" />
+
+
+            <EditText
+                android:id="@+id/editTimes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/txtHowMany"
+                android:layout_marginLeft="@dimen/top_margin"
+                android:layout_marginStart="@dimen/top_margin"
+                android:ems="5"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/txtHowManyPills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/editTimes"
+                android:layout_margin="@dimen/top_margin"
+                android:layout_marginTop="@dimen/top_margin"
+                android:text="@string/number_pills"
+                android:textAppearance="?attr/textAppearanceLargePopupMenu" />
+
+            <EditText
+                android:id="@+id/editNumberPills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/txtHowManyPills"
+                android:layout_marginLeft="@dimen/top_margin"
+                android:layout_marginStart="@dimen/top_margin"
+                android:ems="5"
+                android:inputType="number" />
+        </RelativeLayout>
+    </ScrollView>
+
 
 </RelativeLayout>

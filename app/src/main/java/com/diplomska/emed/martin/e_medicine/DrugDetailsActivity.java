@@ -84,6 +84,10 @@ public class DrugDetailsActivity extends AppCompatActivity {
             case R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
+            case R.id.action_refresh:
+                //ovde uste ednas povikaj so imeto prateno vo intentot
+                //za detalite
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -110,6 +114,10 @@ public class DrugDetailsActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater mi = getMenuInflater();
         mi.inflate(R.menu.menu_details, menu);
+        if(getResources().getConfiguration().orientation == getResources().getConfiguration().ORIENTATION_LANDSCAPE){
+            menu.findItem(R.id.action_alarms).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            menu.findItem(R.id.action_refresh).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }
         return true;
     }
 }

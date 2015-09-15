@@ -13,7 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.diplomska.emed.martin.e_medicine.R;
@@ -36,6 +39,8 @@ public class DrugNameAdapter extends RecyclerView.Adapter<DrugNameViewHolder> im
 
 
     List<Drug> drugsDataSet;
+    private int startHour;
+    private int startMinutes;
 
     public DrugNameAdapter(List<Drug> drugs) {
         drugsDataSet = drugs;
@@ -56,12 +61,12 @@ public class DrugNameAdapter extends RecyclerView.Adapter<DrugNameViewHolder> im
         //holder.genericName.setText(d.getGeneric_name());
         holder.genericName.setVisibility(View.GONE);
         if (TextUtils.isEmpty(d.getGeneric_name())) {
-            drugName=d.getLatin_name();
+            drugName = d.getLatin_name();
             String[] names = drugName.split(",");
             holder.latinName.setText(names[0]);
             holder.genericName.setText(d.getLatin_name());
         } else {
-            drugName=d.getGeneric_name();
+            drugName = d.getGeneric_name();
             String[] names = drugName.split(",");
             holder.latinName.setText(names[0]);
             holder.genericName.setText(d.getGeneric_name());
@@ -82,39 +87,73 @@ public class DrugNameAdapter extends RecyclerView.Adapter<DrugNameViewHolder> im
 
     @Override
     public void createAlarm(Context ctx, String name) {
-        //ovde dialog so toa kolku pati ke se konzumira dnevno
+
         final String drugName = name;
         final Dialog dialog = new Dialog(ctx);
-        //dialog.setTitle(ctx.getString(R.string.create_alarm));
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.set_reminder_layout);
         final EditText editTimesADay = (EditText) dialog.findViewById(R.id.editTimes);
-        EditText editNumberOfPills = (EditText) dialog.findViewById(R.id.editNumberPills);
+        final EditText editNumberOfPills = (EditText) dialog.findViewById(R.id.editNumberPills);
+        final TimePicker startTime = (TimePicker) dialog.findViewById(R.id.startTimePicker);
+        startTime.setIs24HourView(true);
+        startTime.setVisibility(View.GONE);
+        final CheckBox cbStartTime = (CheckBox) dialog.findViewById(R.id.checkTimePicker);
         Button btnSet = (Button) dialog.findViewById(R.id.btnSet);
         Button btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
+
+        startHour = -1;
+        startMinutes = -1;
+
+        startTime.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                if(view.getVisibility() == View.VISIBLE) {
+                    startHour = hourOfDay;
+                    startMinutes = minute;
+                }
+            }
+        });
         btnSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (TextUtils.isEmpty(editTimesADay.getText().toString())) {
-                    Toast.makeText(v.getContext(), "Please enter how many times you will take the medicine!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(v.getContext(), v.getContext().getString(R.string.enter_number_of_times), Toast.LENGTH_LONG).show();
                 } else {
                     //VIDI VO SHARED PREFERENCES ZACUVAJ KOLKU APCINJA OD LEKARSTVO I TAKA KE VCITUVAS
                     //DOPOLNITELNO NA PUKANJE NA ALARM DA SE ODZEMA PO EDNO
                     int times = Integer.parseInt(editTimesADay.getText().toString());
                     Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM);
-                    intent.putExtra(AlarmClock.EXTRA_MESSAGE, drugName + " pill No. 1");
-                    intent.putExtra(AlarmClock.EXTRA_HOUR, Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
-                    intent.putExtra(AlarmClock.EXTRA_MINUTES, Calendar.getInstance().get(Calendar.MINUTE));
-                    v.getContext().startActivity(intent);
-                    for (int i = 1; i < times; i++) {
-                        int hours = (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + (24 / times) * i);
-                        if (hours >= 24) {
-                            hours -= 24;
+
+                    if (startHour != -1) {
+                        intent.putExtra(AlarmClock.EXTRA_MESSAGE, drugName + " pill No. 1");
+                        intent.putExtra(AlarmClock.EXTRA_HOUR, startHour);
+                        intent.putExtra(AlarmClock.EXTRA_MINUTES, startMinutes);
+                        v.getContext().startActivity(intent);
+                        for (int i = 1; i < times; i++) {
+                            int hours = (startHour + (24 / times) * i);
+                            if (hours >= 24) {
+                                hours -= 24;
+                            }
+                            intent.putExtra(AlarmClock.EXTRA_MESSAGE, drugName + " pill No." + (i + 1));
+                            intent.putExtra(AlarmClock.EXTRA_HOUR, hours);
+                            intent.putExtra(AlarmClock.EXTRA_MINUTES, startMinutes);
+                            v.getContext().startActivity(intent);
                         }
-                        intent.putExtra(AlarmClock.EXTRA_MESSAGE, drugName + " pill No." + (i + 1));
-                        intent.putExtra(AlarmClock.EXTRA_HOUR, hours);
+                    } else {
+                        intent.putExtra(AlarmClock.EXTRA_MESSAGE, drugName + " pill No. 1");
+                        intent.putExtra(AlarmClock.EXTRA_HOUR, Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
                         intent.putExtra(AlarmClock.EXTRA_MINUTES, Calendar.getInstance().get(Calendar.MINUTE));
                         v.getContext().startActivity(intent);
+                        for (int i = 1; i < times; i++) {
+                            int hours = (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + (24 / times) * i);
+                            if (hours >= 24) {
+                                hours -= 24;
+                            }
+                            intent.putExtra(AlarmClock.EXTRA_MESSAGE, drugName + " pill No." + (i + 1));
+                            intent.putExtra(AlarmClock.EXTRA_HOUR, hours);
+                            intent.putExtra(AlarmClock.EXTRA_MINUTES, Calendar.getInstance().get(Calendar.MINUTE));
+                            v.getContext().startActivity(intent);
+                        }
                     }
                     dialog.dismiss();
                 }
@@ -124,6 +163,18 @@ public class DrugNameAdapter extends RecyclerView.Adapter<DrugNameViewHolder> im
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+            }
+        });
+        cbStartTime.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!isChecked) {
+                    startTime.setVisibility(View.GONE);
+                    startHour = -1;
+                    startMinutes = -1;
+                } else {
+                    startTime.setVisibility(View.VISIBLE);
+                }
             }
         });
         dialog.setCancelable(false);
