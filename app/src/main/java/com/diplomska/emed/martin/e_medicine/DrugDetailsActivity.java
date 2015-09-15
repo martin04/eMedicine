@@ -3,6 +3,7 @@ package com.diplomska.emed.martin.e_medicine;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.provider.AlarmClock;
 import android.support.design.widget.TabLayout;
@@ -114,7 +115,7 @@ public class DrugDetailsActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater mi = getMenuInflater();
         mi.inflate(R.menu.menu_details, menu);
-        if(getResources().getConfiguration().orientation == getResources().getConfiguration().ORIENTATION_LANDSCAPE){
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
             menu.findItem(R.id.action_alarms).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
             menu.findItem(R.id.action_refresh).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
