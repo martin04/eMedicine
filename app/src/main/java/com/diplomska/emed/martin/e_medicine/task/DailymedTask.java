@@ -1,8 +1,10 @@
 package com.diplomska.emed.martin.e_medicine.task;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 
+import com.diplomska.emed.martin.e_medicine.R;
 import com.diplomska.emed.martin.e_medicine.interfaces.OnTaskCompleted;
 import com.diplomska.emed.martin.e_medicine.models.Drug;
 import com.diplomska.emed.martin.e_medicine.models.PillModel;
@@ -25,10 +27,12 @@ import java.util.List;
 public class DailymedTask extends AsyncTask<String, Void, List<Drug>> {
 
     private OnTaskCompleted listener;
+    private Context ctx;
 
 
-    public DailymedTask(OnTaskCompleted listener) {
+    public DailymedTask(Context ctx, OnTaskCompleted listener) {
         this.listener = listener;
+        this.ctx = ctx;
     }
 
     @Override
@@ -51,9 +55,9 @@ public class DailymedTask extends AsyncTask<String, Void, List<Drug>> {
     protected void onPostExecute(List<Drug> drugs) {
         if (drugs != null && drugs.size() > 0) {
             listener.onTaskCompleted(drugs);
-        }else if(drugs != null && drugs.size()==0){
+        } else if (drugs != null && drugs.size() == 0) {
             listener.onTaskCompleted(drugs);
-        }else{
+        } else {
             listener.onTaskNotCompleted();
         }
     }
@@ -83,17 +87,17 @@ public class DailymedTask extends AsyncTask<String, Void, List<Drug>> {
                 JSONObject obj = arr.getJSONObject(i);
                 Drug d = new Drug();
                 d.setCode("");
-                if(!obj.getString("drug_name").equalsIgnoreCase("-")) {
+                if (!obj.getString("drug_name").equalsIgnoreCase("-")) {
                     if (obj.getString("name_type").equalsIgnoreCase("G")) {
-                        d.setGeneric_name(obj.getString("drug_name").replace("(", "").replace(")", "").replace("-", " ").replace(".",""));
+                        d.setGeneric_name(obj.getString("drug_name").replace("(", "").replace(")", "").replace("-", " ").replace(".", ""));
                         d.setLatin_name("");
                     } else {
                         d.setGeneric_name("");
-                        d.setLatin_name(obj.getString("drug_name").replace("(", "").replace(")", "").replace("-", " ").replace(".",""));
+                        d.setLatin_name(obj.getString("drug_name").replace("(", "").replace(")", "").replace("-", " ").replace(".", ""));
                     }
-                }else{
-                    d.setGeneric_name("Name not available");
-                    d.setLatin_name("Name not available");
+                } else {
+                    d.setGeneric_name(ctx.getString(R.string.name_not_available));
+                    d.setLatin_name(ctx.getString(R.string.name_not_available));
                 }
                 drugs.add(d);
             }

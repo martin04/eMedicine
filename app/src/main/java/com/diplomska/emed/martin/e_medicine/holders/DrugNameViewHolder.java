@@ -59,17 +59,22 @@ public class DrugNameViewHolder extends RecyclerView.ViewHolder implements View.
         if (v instanceof ImageButton) {
             listener.createAlarm(ctx, latinName.getText().toString());
         } else {
-            code = drugCode.getText().toString();
-            String[] contraindications = getContraindications(ctx, code).split("\n");
-            String[] advices = getAdvices(ctx, code).split("\n");
-            String name = latinName.getText().toString();
+            if (latinName.getText().toString().equalsIgnoreCase(v.getContext().getString(R.string.name_not_available))) {
+                Toast.makeText(v.getContext(), v.getContext().getString(R.string.no_details_available), Toast.LENGTH_LONG).show();
+            } else {
+                code = drugCode.getText().toString();
+                String[] contraindications = getContraindications(ctx, code).split("\n");
+                String[] advices = getAdvices(ctx, code).split("\n");
+                String name = genericName.getText().toString();
 
-            Intent details = new Intent(ctx, DrugDetailsActivity.class);
-            details.putExtra("name", name);
-            details.putExtra("contraindications", contraindications);
-            details.putExtra("advices", advices);
-            ctx.startActivity(details);
+                Intent details = new Intent(ctx, DrugDetailsActivity.class);
+                details.putExtra("name", name);
+                details.putExtra("contraindications", contraindications);
+                details.putExtra("advices", advices);
+                ctx.startActivity(details);
+            }
         }
+
     }
 
     //Helper function for getting the contraindicatons

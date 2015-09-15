@@ -14,7 +14,7 @@
     <string name="action_about">About</string>
     <string name="action_alarms">Alarms</string>
     <!--<string name="search_hint">Drug name&#8230;</string>-->
-    <string name="search_hint">Latin or Generic name&#8230;</string>
+    <string name="search_hint">Brand or Generic name&#8230;</string>
     <string name="menu_search">Search</string>
     <string name="search_result">Search result</string>
     <string name="drug_details">Drug details</string>
@@ -137,4 +137,8 @@
     <string name="connection_message">Could not connect to server.</string>
     <string name="connection_cancel_dialog">Cancel</string>
     <string name="connection_ok_dialog">Connect</string>
+
+    <!-- other strings -->
+    <string name="name_not_available">Name not available</string>
+    <string name="no_details_available">No details available at this moment.</string>
 </resources>

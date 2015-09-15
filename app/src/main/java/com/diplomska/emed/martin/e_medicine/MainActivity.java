@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted, 
             dataFilled = false;
             connectionDialog();
         } else {
-            DailymedTask load = new DailymedTask(this);
+            DailymedTask load = new DailymedTask(this, this);
             load.execute("http://dailymed.nlm.nih.gov/dailymed/services/v2/drugnames.json?pagesize=20&page=1");
         }
     }
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted, 
     @Override
     public boolean onQueryTextSubmit(String query) {
         SearchTask search = new SearchTask(this, this);
-        search.execute(query);
+        search.execute(query.trim());
         return true;
     }
 
@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted, 
     protected void onRestart() {
         super.onRestart();
         if (!dataFilled) {
-            DailymedTask load = new DailymedTask(this);
+            DailymedTask load = new DailymedTask(this, this);
             load.execute("http://dailymed.nlm.nih.gov/dailymed/services/v2/drugnames.json?pagesize=20&page=1");
         }
     }

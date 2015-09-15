@@ -51,12 +51,20 @@ public class DrugNameAdapter extends RecyclerView.Adapter<DrugNameViewHolder> im
     @Override
     public void onBindViewHolder(DrugNameViewHolder holder, int position) {
         Drug d = drugsDataSet.get(position);
+        String drugName = "";
+
         //holder.genericName.setText(d.getGeneric_name());
         holder.genericName.setVisibility(View.GONE);
         if (TextUtils.isEmpty(d.getGeneric_name())) {
-            holder.latinName.setText(d.getLatin_name());
+            drugName=d.getLatin_name();
+            String[] names = drugName.split(",");
+            holder.latinName.setText(names[0]);
+            holder.genericName.setText(d.getLatin_name());
         } else {
-            holder.latinName.setText(d.getGeneric_name());
+            drugName=d.getGeneric_name();
+            String[] names = drugName.split(",");
+            holder.latinName.setText(names[0]);
+            holder.genericName.setText(d.getGeneric_name());
         }
 
         holder.drugCode.setText(d.getCode());
