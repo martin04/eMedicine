@@ -10,6 +10,8 @@ import com.diplomska.emed.martin.e_medicine.fragments.ContraindicationsFragment;
 import com.diplomska.emed.martin.e_medicine.fragments.AltNamesFragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Martin on 9/5/2015.
@@ -21,11 +23,13 @@ public class DrugViewPagerAdapter extends FragmentStatePagerAdapter {
     private String[] contra;
     private String[] adv;
     private String[] altNames;
+    private HashMap<String, String> drugDrug;
 
-    public DrugViewPagerAdapter(FragmentManager fm, ArrayList<String> names, int numOfTabs, String[] contra, String[] adv, String[] altNames) {
+    public DrugViewPagerAdapter(FragmentManager fm, ArrayList<String> names, int numOfTabs, HashMap<String, String> drugDrug, String[] contra, String[] adv, String[] altNames) {
         super(fm);
         this.names = names;
         this.numOfTabs = numOfTabs;
+        this.drugDrug = drugDrug;
         this.contra = contra;
         this.adv = adv;
         this.altNames = altNames;
@@ -42,7 +46,8 @@ public class DrugViewPagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 Bundle b = new Bundle();
-                b.putStringArray("contraindications", contra);
+                //b.putStringArray("contraindications", contra);
+                b.putString("drug_drug_interactions",formatDrugInteractions(drugDrug));
                 ContraindicationsFragment cf = new ContraindicationsFragment();
                 cf.setArguments(b);
                 return cf;
@@ -54,7 +59,7 @@ public class DrugViewPagerAdapter extends FragmentStatePagerAdapter {
                 return af;
 
             case 2:
-                Bundle anf=new Bundle();
+                Bundle anf = new Bundle();
                 anf.putStringArray("alt_names", altNames);
                 AltNamesFragment rf = new AltNamesFragment();
                 rf.setArguments(anf);
@@ -66,5 +71,13 @@ public class DrugViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return numOfTabs;
+    }
+
+    private String formatDrugInteractions(HashMap<String,String> drugs){
+        String formatted="";
+        for(Map.Entry<String,String> entry : drugs.entrySet()){
+            formatted+=entry.getKey()+" - "+entry.getValue()+"\n\n";
+        }
+        return formatted;
     }
 }

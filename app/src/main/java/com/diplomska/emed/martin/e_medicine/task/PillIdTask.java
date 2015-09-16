@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.diplomska.emed.martin.e_medicine.interfaces.onPillIdTaskHandler;
 import com.diplomska.emed.martin.e_medicine.models.PillModel;
+import com.diplomska.emed.martin.e_medicine.utils.EmedUtils;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -37,7 +38,7 @@ public class PillIdTask extends AsyncTask<String, Void, List<PillModel>> {
     @Override
     protected List<PillModel> doInBackground(String... params) {
         try {
-            return jsonParser(readJsonFeed(params[0]));
+            return jsonParser(EmedUtils.readJsonFeed(params[0]));
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;
@@ -54,23 +55,6 @@ public class PillIdTask extends AsyncTask<String, Void, List<PillModel>> {
             }
         } else {
             listener.onPillIdError("An error occurred, please try again.");
-        }
-    }
-
-    protected String readJsonFeed(String urlLink) {
-        try {
-            URL url = new URL(urlLink);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-
-            // read the response
-            System.out.println("Response Code: " + conn.getResponseCode());
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            return IOUtils.toString(in, "UTF-8");
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
         }
     }
 

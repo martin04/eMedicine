@@ -19,8 +19,11 @@ import com.diplomska.emed.martin.e_medicine.R;
  */
 public class ContraindicationsFragment extends Fragment {
 
-    private TableLayout tableContra;
-    private TextView contraDesc;
+    /*private TableLayout tableContra;
+    private TextView contraDesc;*/
+    private TextView txtDrugDrug;
+    private TextView txtContraindications;
+
 
     public ContraindicationsFragment() {
     }
@@ -30,14 +33,16 @@ public class ContraindicationsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.contra_fragment, container, false);
 
-
-        fillTblContra(v,getArguments().getStringArray("contraindications"));
+        txtDrugDrug = (TextView)v.findViewById(R.id.txtDrugDrug);
+        txtContraindications = (TextView)v.findViewById(R.id.txtContraindications);
+        txtDrugDrug.setText(getArguments().getString("drug_drug_interactions"));
+        //fillTblContra(v,getArguments().getStringArray("contraindications"));
 
         return v;
     }
 
     //Function for creating the table rows for contraindications
-    private void fillTblContra(View v,String[] contra) {
+    /*private void fillTblContra(View v,String[] contra) {
         tableContra = (TableLayout) v.findViewById(R.id.tblContra);
         for (int i = 0; i < contra.length; i++) {
             TableRow row = new TableRow(v.getContext());
@@ -50,5 +55,5 @@ public class ContraindicationsFragment extends Fragment {
             row.addView(contraDesc);
             tableContra.addView(row, i);
         }
-    }
+    }*/
 }

@@ -1,6 +1,7 @@
 package com.diplomska.emed.martin.e_medicine;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -18,30 +19,33 @@ import android.view.MenuItem;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.diplomska.emed.martin.e_medicine.adapter.DrugViewPagerAdapter;
+import com.diplomska.emed.martin.e_medicine.interfaces.InteractionsHandler;
+import com.diplomska.emed.martin.e_medicine.interfaces.RxNormHandler;
+import com.diplomska.emed.martin.e_medicine.task.InteractionsApiTask;
+import com.diplomska.emed.martin.e_medicine.task.RxNormTask;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Martin on 29-Jun-15.
  */
-public class DrugDetailsActivity extends AppCompatActivity {
+public class DrugDetailsActivity extends AppCompatActivity implements RxNormHandler, InteractionsHandler {
 
     private Intent intent;
-
-    private TextView drugName;
-    private TableLayout tableContra;
-    private TableLayout tableAdvice;
-    private TextView contraDesc;
-    private TextView adviceDesc;
 
     private TabLayout tabs;
     private ViewPager pager;
     private DrugViewPagerAdapter adapter;
     private ArrayList<String> names;
+    private ProgressDialog pDialog;
+    private String mainName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,18 +62,20 @@ public class DrugDetailsActivity extends AppCompatActivity {
         names = new ArrayList<>(Arrays.asList(getString(R.string.tab_contra), getString(R.string.tab_advice)
                 , getString(R.string.tab_alt_names)));
         intent = getIntent();
-        getSupportActionBar().setTitle(intent.getStringExtra("name").split(",")[0]);
+        mainName = intent.getStringExtra("name").split(",")[0].trim();
+        getSupportActionBar().setTitle(mainName);
 
-        adapter = new DrugViewPagerAdapter(getSupportFragmentManager(), names, 3, intent.getStringArrayExtra("contraindications"),
-                intent.getStringArrayExtra("advices"),intent.getStringExtra("name").split(","));
+
         pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(adapter);
+
         tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.addTab(tabs.newTab().setText(getString(R.string.tab_contra)));
         tabs.addTab(tabs.newTab().setText(getString(R.string.tab_advice)));
         tabs.addTab(tabs.newTab().setText(getString(R.string.tab_alt_names)));
         tabs.setTabTextColors(ContextCompat.getColor(this, R.color.icons), ContextCompat.getColor(this, R.color.icons));
-        tabs.setupWithViewPager(pager);
+
+
+        new RxNormTask(this).execute(mainName);
 
     }
 
@@ -86,8 +92,7 @@ public class DrugDetailsActivity extends AppCompatActivity {
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
             case R.id.action_refresh:
-                //ovde uste ednas povikaj so imeto prateno vo intentot
-                //za detalite
+                new RxNormTask(this).execute(mainName);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -115,10 +120,52 @@ public class DrugDetailsActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater mi = getMenuInflater();
         mi.inflate(R.menu.menu_details, menu);
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             menu.findItem(R.id.action_alarms).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
             menu.findItem(R.id.action_refresh).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
         return true;
+    }
+
+    @Override
+    public void onRxNormStarted() {
+        pDialog = new ProgressDialog(this);
+        pDialog.setMessage(getString(R.string.loading_db));
+        pDialog.show();
+    }
+
+    @Override
+    public void onRxNormResult(List<String> rxcui) {
+        String queryParam = "";
+        if (rxcui.size() == 1) {
+            new InteractionsApiTask(this).execute(rxcui.get(0));
+        } else {
+            for (int i = 0; i < rxcui.size(); i++) {
+                queryParam += rxcui.get(i) + "+";
+            }
+            new InteractionsApiTask(this).execute(queryParam);
+        }
+    }
+
+    @Override
+    public void onRxNormError() {
+        Toast.makeText(this, getString(R.string.error_occurred), Toast.LENGTH_LONG).show();
+        pDialog.dismiss();
+    }
+
+    @Override
+    public void onInteractionsResult(HashMap<String, String> contraDrugs) {
+        adapter = new DrugViewPagerAdapter(getSupportFragmentManager(), names, 3, contraDrugs, intent.getStringArrayExtra("contraindications"),
+                intent.getStringArrayExtra("advices"), intent.getStringExtra("name").split(","));
+        pager.setAdapter(adapter);
+        tabs.setupWithViewPager(pager);
+
+        pDialog.dismiss();
+    }
+
+    @Override
+    public void onInteractionsError() {
+        Toast.makeText(this, getString(R.string.error_occurred), Toast.LENGTH_LONG).show();
+        pDialog.dismiss();
     }
 }

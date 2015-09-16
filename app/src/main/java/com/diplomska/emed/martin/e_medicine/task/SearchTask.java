@@ -7,6 +7,7 @@ import android.system.Os;
 import com.diplomska.emed.martin.e_medicine.adapter.DrugAdapter;
 import com.diplomska.emed.martin.e_medicine.interfaces.OnTaskCompleted;
 import com.diplomska.emed.martin.e_medicine.models.Drug;
+import com.diplomska.emed.martin.e_medicine.utils.EmedUtils;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -49,7 +50,7 @@ public class SearchTask extends AsyncTask<String, Void, List<Drug>> {
             drug.close();
             return result;*/
             String url="http://dailymed.nlm.nih.gov/dailymed/services/v2/drugnames.json?drug_name="+URLEncoder.encode(params[0],"UTF-8")+"&pagesize=50&page=1";
-            return jsonParser(readJsonFeed(url));
+            return jsonParser(EmedUtils.readJsonFeed(url));
         }
         catch (Exception ex){
             ex.printStackTrace();
@@ -65,23 +66,6 @@ public class SearchTask extends AsyncTask<String, Void, List<Drug>> {
             listener.onTaskCompleted(drugs);
         }else{
             listener.onTaskNotCompleted();
-        }
-    }
-
-    protected String readJsonFeed(String urlLink) {
-        try {
-            URL url = new URL(urlLink);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-
-            // read the response
-            System.out.println("Response Code: " + conn.getResponseCode());
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            return IOUtils.toString(in, "UTF-8");
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
         }
     }
 

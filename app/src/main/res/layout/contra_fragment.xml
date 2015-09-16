@@ -11,8 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/activity_horizontal_margin">
 
-        <TableLayout
-            android:id="@+id/tblContra"
+        <TextView
+            android:id="@+id/txtContraindications"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
@@ -20,8 +20,47 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="5dp"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="@dimen/activity_horizontal_margin">
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_below="@+id/txtOI"/>
+        <TextView
+            android:id="@+id/txtOI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:textColor="@color/primary_text"
+            android:textSize="18sp"
+            android:text="@string/other_ind"
+            android:textStyle="bold"
+            android:layout_below="@+id/txtDrugDrug"/>
+        <TextView
+            android:id="@+id/txtDrugDrug"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_below="@+id/txtDD"
+            android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/txtDD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:textColor="@color/primary_text"
+            android:textSize="18sp"
+            android:text="@string/drug_drug_ind"
+            android:textStyle="bold"/>
 
-        </TableLayout>
     </RelativeLayout>
 </ScrollView>

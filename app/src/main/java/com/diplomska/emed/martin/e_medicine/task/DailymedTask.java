@@ -8,6 +8,7 @@ import com.diplomska.emed.martin.e_medicine.R;
 import com.diplomska.emed.martin.e_medicine.interfaces.OnTaskCompleted;
 import com.diplomska.emed.martin.e_medicine.models.Drug;
 import com.diplomska.emed.martin.e_medicine.models.PillModel;
+import com.diplomska.emed.martin.e_medicine.utils.EmedUtils;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -44,7 +45,7 @@ public class DailymedTask extends AsyncTask<String, Void, List<Drug>> {
     protected List<Drug> doInBackground(String... params) {
         //here we take first 20 drugs of the first page
         try {
-            return jsonParser(readJsonFeed(params[0]));
+            return jsonParser(EmedUtils.readJsonFeed(params[0]));
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;
@@ -59,23 +60,6 @@ public class DailymedTask extends AsyncTask<String, Void, List<Drug>> {
             listener.onTaskCompleted(drugs);
         } else {
             listener.onTaskNotCompleted();
-        }
-    }
-
-    protected String readJsonFeed(String urlLink) {
-        try {
-            URL url = new URL(urlLink);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-
-            // read the response
-            System.out.println("Response Code: " + conn.getResponseCode());
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            return IOUtils.toString(in, "UTF-8");
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
         }
     }
 

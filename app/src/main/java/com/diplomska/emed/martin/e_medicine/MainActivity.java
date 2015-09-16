@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted, 
 
     @Override
     public void onTaskNotCompleted() {
-        Toast.makeText(MainActivity.this, "Oops there is sth wrong!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, getString(R.string.error_occurred), Toast.LENGTH_SHORT).show();
         pdLoading.cancel();
     }
 
