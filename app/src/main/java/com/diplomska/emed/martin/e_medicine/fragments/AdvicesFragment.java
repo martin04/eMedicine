@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,9 @@ import com.diplomska.emed.martin.e_medicine.R;
  */
 public class AdvicesFragment extends Fragment {
 
-    private TableLayout tableAdvice;
-    private TextView adviceDesc;
+    private TextView precautions;
+    private TextView warnings;
+    private TextView generalPrecautions;
 
     public AdvicesFragment() {
     }
@@ -29,26 +31,17 @@ public class AdvicesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.advice_fragment, container, false);
 
+        precautions = (TextView) v.findViewById(R.id.txtPrecautions);
+        warnings = (TextView) v.findViewById(R.id.txtWarnings);
+        generalPrecautions = (TextView) v.findViewById(R.id.txtGenralP);
 
-        fillTblAdvices(v,getArguments().getStringArray("advices"));
+        String[] adv = getArguments().getStringArray("advices");
+        if(adv!=null) {
+            precautions.setText(TextUtils.isEmpty(adv[0])? "" : adv[0].substring(11));
+            warnings.setText(TextUtils.isEmpty(adv[1]) ? "" : adv[1].substring(9));
+            generalPrecautions.setText(TextUtils.isEmpty(adv[2])? "" : adv[2].substring(8));
+        }
 
         return v;
-    }
-
-    //Function for creating the table rows for advices
-    private void fillTblAdvices(View v,String[] adv) {
-        tableAdvice = (TableLayout) v.findViewById(R.id.tblAdvice);
-
-        for (int i = 0; i < adv.length; i++) {
-            TableRow row = new TableRow(v.getContext());
-            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT);
-            row.setLayoutParams(lp);
-            adviceDesc = new TextView(v.getContext());
-            adviceDesc.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
-                    TableRow.LayoutParams.WRAP_CONTENT));
-            adviceDesc.setText(Html.fromHtml("&#183;") + " " + adv[i]);
-            row.addView(adviceDesc);
-            tableAdvice.addView(row, i);
-        }
     }
 }

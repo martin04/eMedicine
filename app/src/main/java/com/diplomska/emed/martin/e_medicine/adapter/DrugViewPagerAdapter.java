@@ -11,6 +11,8 @@ import com.diplomska.emed.martin.e_medicine.fragments.AltNamesFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,12 +22,13 @@ public class DrugViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList<String> names;
     private int numOfTabs;
-    private String[] contra;
-    private String[] adv;
+    private List<String> contra;
+    private List<String> adv;
     private String[] altNames;
-    private HashMap<String, String> drugDrug;
+    private LinkedHashMap<String, String> drugDrug;
 
-    public DrugViewPagerAdapter(FragmentManager fm, ArrayList<String> names, int numOfTabs, HashMap<String, String> drugDrug, String[] contra, String[] adv, String[] altNames) {
+    public DrugViewPagerAdapter(FragmentManager fm, ArrayList<String> names, int numOfTabs,
+                                LinkedHashMap<String, String> drugDrug, List<String> contra, List<String> adv, String[] altNames) {
         super(fm);
         this.names = names;
         this.numOfTabs = numOfTabs;
@@ -46,14 +49,16 @@ public class DrugViewPagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 Bundle b = new Bundle();
-                //b.putStringArray("contraindications", contra);
+                String[] tmpC = new String[contra.size()];
+                b.putStringArray("contraindications", contra.toArray(tmpC));
                 b.putString("drug_drug_interactions",formatDrugInteractions(drugDrug));
                 ContraindicationsFragment cf = new ContraindicationsFragment();
                 cf.setArguments(b);
                 return cf;
             case 1:
                 Bundle ba = new Bundle();
-                ba.putStringArray("advices", adv);
+                String[] tmpA = new String[adv.size()];
+                ba.putStringArray("advices", adv.toArray(tmpA));
                 AdvicesFragment af = new AdvicesFragment();
                 af.setArguments(ba);
                 return af;
@@ -73,7 +78,7 @@ public class DrugViewPagerAdapter extends FragmentStatePagerAdapter {
         return numOfTabs;
     }
 
-    private String formatDrugInteractions(HashMap<String,String> drugs){
+    private String formatDrugInteractions(LinkedHashMap<String,String> drugs){
         String formatted="";
         for(Map.Entry<String,String> entry : drugs.entrySet()){
             formatted+=entry.getKey()+" - "+entry.getValue()+"\n\n";

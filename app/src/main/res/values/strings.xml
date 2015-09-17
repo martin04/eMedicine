@@ -147,4 +147,7 @@
     <string name="error_occurred">An error occurred, please try again.</string>
     <string name="drug_drug_ind">&#183;Drug-drug indications:</string>
     <string name="other_ind">&#183;Other indications:</string>
+    <string name="precautions">&#183;Precautions:</string>
+    <string name="warnings">&#183;Warnings:</string>
+    <string name="general_p">&#183;Genral precautions:</string>
 </resources>

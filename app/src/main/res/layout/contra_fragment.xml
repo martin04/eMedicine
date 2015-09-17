@@ -2,8 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginTop="@dimen/activity_horizontal_margin">
+    android:layout_marginTop="@dimen/activity_horizontal_margin"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/relView"
@@ -15,39 +15,43 @@
             android:id="@+id/txtContraindications"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txtOI"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="5dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="5dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_below="@+id/txtOI"/>
+            android:textSize="16sp" />
+
         <TextView
             android:id="@+id/txtOI"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txtDrugDrug"
             android:layout_marginEnd="5dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="5dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="@string/other_ind"
             android:textColor="@color/primary_text"
             android:textSize="18sp"
-            android:text="@string/other_ind"
-            android:textStyle="bold"
-            android:layout_below="@+id/txtDrugDrug"/>
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/txtDrugDrug"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txtDD"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="5dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="5dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_below="@+id/txtDD"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
+
         <TextView
             android:id="@+id/txtDD"
             android:layout_width="wrap_content"
@@ -57,10 +61,10 @@
             android:layout_marginRight="5dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="@string/drug_drug_ind"
             android:textColor="@color/primary_text"
             android:textSize="18sp"
-            android:text="@string/drug_drug_ind"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     </RelativeLayout>
 </ScrollView>

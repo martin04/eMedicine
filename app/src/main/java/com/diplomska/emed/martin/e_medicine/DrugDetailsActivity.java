@@ -23,20 +23,23 @@ import android.widget.Toast;
 
 import com.diplomska.emed.martin.e_medicine.adapter.DrugViewPagerAdapter;
 import com.diplomska.emed.martin.e_medicine.interfaces.InteractionsHandler;
+import com.diplomska.emed.martin.e_medicine.interfaces.OpenFDAHandler;
 import com.diplomska.emed.martin.e_medicine.interfaces.RxNormHandler;
 import com.diplomska.emed.martin.e_medicine.task.InteractionsApiTask;
+import com.diplomska.emed.martin.e_medicine.task.OpenFdaTask;
 import com.diplomska.emed.martin.e_medicine.task.RxNormTask;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
  * Created by Martin on 29-Jun-15.
  */
-public class DrugDetailsActivity extends AppCompatActivity implements RxNormHandler, InteractionsHandler {
+public class DrugDetailsActivity extends AppCompatActivity implements RxNormHandler, InteractionsHandler, OpenFDAHandler {
 
     private Intent intent;
 
@@ -46,6 +49,7 @@ public class DrugDetailsActivity extends AppCompatActivity implements RxNormHand
     private ArrayList<String> names;
     private ProgressDialog pDialog;
     private String mainName;
+    private LinkedHashMap<String,String> contraDrugs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -93,6 +97,7 @@ public class DrugDetailsActivity extends AppCompatActivity implements RxNormHand
                 return true;
             case R.id.action_refresh:
                 new RxNormTask(this).execute(mainName);
+                //povik kon OPEN FDA
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -154,17 +159,28 @@ public class DrugDetailsActivity extends AppCompatActivity implements RxNormHand
     }
 
     @Override
-    public void onInteractionsResult(HashMap<String, String> contraDrugs) {
-        adapter = new DrugViewPagerAdapter(getSupportFragmentManager(), names, 3, contraDrugs, intent.getStringArrayExtra("contraindications"),
-                intent.getStringArrayExtra("advices"), intent.getStringExtra("name").split(","));
-        pager.setAdapter(adapter);
-        tabs.setupWithViewPager(pager);
-
-        pDialog.dismiss();
+    public void onInteractionsResult(LinkedHashMap<String, String> contraDrugs) {
+        this.contraDrugs = contraDrugs;
+        new OpenFdaTask(this).execute(mainName);
     }
 
     @Override
     public void onInteractionsError() {
+        Toast.makeText(this, getString(R.string.error_occurred), Toast.LENGTH_LONG).show();
+        pDialog.dismiss();
+    }
+
+    @Override
+    public void openFdaResult(LinkedHashMap<String, List<String>> fda) {
+        adapter = new DrugViewPagerAdapter(getSupportFragmentManager(), names, 3, contraDrugs, fda.get("contraindications"),
+                fda.get("advices"), intent.getStringExtra("name").split(","));
+        pager.setAdapter(adapter);
+        tabs.setupWithViewPager(pager);
+        pDialog.dismiss();
+    }
+
+    @Override
+    public void openFdaError() {
         Toast.makeText(this, getString(R.string.error_occurred), Toast.LENGTH_LONG).show();
         pDialog.dismiss();
     }

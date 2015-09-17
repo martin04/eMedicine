@@ -9,15 +9,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.LinkedHashMap;
 
 /**
  * Created by Martin on 9/16/2015.
  */
-public class InteractionsApiTask extends AsyncTask<String, Void, HashMap<String, String>> {
+public class InteractionsApiTask extends AsyncTask<String, Void, LinkedHashMap<String, String>> {
 
     private InteractionsHandler listener;
 
@@ -27,7 +25,7 @@ public class InteractionsApiTask extends AsyncTask<String, Void, HashMap<String,
 
 
     @Override
-    protected HashMap<String, String> doInBackground(String... params) {
+    protected LinkedHashMap<String, String> doInBackground(String... params) {
         try {
             String url = "https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=" + params[0];
             return jsonParser(EmedUtils.readJsonFeed(url));
@@ -39,7 +37,7 @@ public class InteractionsApiTask extends AsyncTask<String, Void, HashMap<String,
     }
 
     @Override
-    protected void onPostExecute(HashMap<String, String> drugs) {
+    protected void onPostExecute(LinkedHashMap<String, String> drugs) {
         if(drugs!=null){
             listener.onInteractionsResult(drugs);
         }else{
@@ -47,8 +45,8 @@ public class InteractionsApiTask extends AsyncTask<String, Void, HashMap<String,
         }
     }
 
-    protected HashMap<String, String> jsonParser(String json) {
-        HashMap<String, String> drugs = new HashMap<String, String>();
+    protected LinkedHashMap<String, String> jsonParser(String json) {
+        LinkedHashMap<String, String> drugs = new LinkedHashMap<String, String>();
         try {
             JSONObject obj = new JSONObject(json);
             JSONArray arrType = obj.getJSONArray("interactionTypeGroup");
