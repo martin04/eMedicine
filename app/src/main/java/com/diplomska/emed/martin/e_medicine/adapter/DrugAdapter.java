@@ -125,6 +125,28 @@ public class DrugAdapter {
             c.close();
         }
     }
+    public Drug getDrugByCode(String code) {
+        Drug d = new Drug();
+        Cursor c = db.query(DBHelper.TABLE_DRUGS, columns, DBHelper.COLUMN_CODE+ "=" + code, null, null, null, null);
+        try {
+            if (c.moveToFirst()) {
+                d.setId(c.getLong(c.getColumnIndex(DBHelper.COLUMN_DRUG_ID)));
+                d.setCode(c.getString(c.getColumnIndex(DBHelper.COLUMN_CODE)));
+                d.setLatin_name(c.getString(c.getColumnIndex(DBHelper.COLUMN_LATIN_NAME)));
+                d.setGeneric_name(c.getString(c.getColumnIndex(DBHelper.COLUMN_GENERIC_NAME)));
+                d.setColor(c.getString(c.getColumnIndex(DBHelper.COLUMN_COLOR)));
+                d.setShape(c.getString(c.getColumnIndex(DBHelper.COLUMN_SHAPE)));
+                return d;
+            } else {
+                return null;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            c.close();
+        }
+    }
 
     //zemanje po ime, kade sovpagjanjeto na imeto treba da bide parcijalno!
     public List<Drug> getDrugByGenName(String generic) {

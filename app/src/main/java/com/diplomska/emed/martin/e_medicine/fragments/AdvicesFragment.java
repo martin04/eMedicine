@@ -36,10 +36,10 @@ public class AdvicesFragment extends Fragment {
         generalPrecautions = (TextView) v.findViewById(R.id.txtGenralP);
 
         String[] adv = getArguments().getStringArray("advices");
-        if(adv!=null) {
-            precautions.setText(TextUtils.isEmpty(adv[0])? "" : adv[0].substring(11));
-            warnings.setText(TextUtils.isEmpty(adv[1]) ? "" : adv[1].substring(9));
-            generalPrecautions.setText(TextUtils.isEmpty(adv[2])? "" : adv[2].substring(8));
+        if (adv != null) {
+            precautions.setText((TextUtils.isEmpty(adv[0]) || adv[0] == null) ? "" : adv[0].substring(11));
+            warnings.setText((TextUtils.isEmpty(adv[1]) || adv[1] == null) ? "" : adv[1].substring(9));
+            generalPrecautions.setText((TextUtils.isEmpty(adv[2]) || adv[2] == null) ? "" : adv[2].substring(8));
         }
 
         return v;

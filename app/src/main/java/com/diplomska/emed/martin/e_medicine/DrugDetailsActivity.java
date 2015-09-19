@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,10 +22,15 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.diplomska.emed.martin.e_medicine.adapter.AdviseAdapter;
+import com.diplomska.emed.martin.e_medicine.adapter.ContraindicationAdapter;
+import com.diplomska.emed.martin.e_medicine.adapter.DrugNoCacheViewPagerAdapter;
 import com.diplomska.emed.martin.e_medicine.adapter.DrugViewPagerAdapter;
+import com.diplomska.emed.martin.e_medicine.interfaces.CacheTaskHandler;
 import com.diplomska.emed.martin.e_medicine.interfaces.InteractionsHandler;
 import com.diplomska.emed.martin.e_medicine.interfaces.OpenFDAHandler;
 import com.diplomska.emed.martin.e_medicine.interfaces.RxNormHandler;
+import com.diplomska.emed.martin.e_medicine.task.CacheResultsTask;
 import com.diplomska.emed.martin.e_medicine.task.InteractionsApiTask;
 import com.diplomska.emed.martin.e_medicine.task.OpenFdaTask;
 import com.diplomska.emed.martin.e_medicine.task.RxNormTask;
@@ -39,17 +45,20 @@ import java.util.List;
 /**
  * Created by Martin on 29-Jun-15.
  */
-public class DrugDetailsActivity extends AppCompatActivity implements RxNormHandler, InteractionsHandler, OpenFDAHandler {
+public class DrugDetailsActivity extends AppCompatActivity implements RxNormHandler, InteractionsHandler, OpenFDAHandler, CacheTaskHandler {
 
     private Intent intent;
 
     private TabLayout tabs;
     private ViewPager pager;
     private DrugViewPagerAdapter adapter;
+    private DrugNoCacheViewPagerAdapter adapterNoCache;
     private ArrayList<String> names;
     private ProgressDialog pDialog;
     private String mainName;
-    private LinkedHashMap<String,String> contraDrugs;
+    private LinkedHashMap<String, String> contraDrugs;
+    private LinkedHashMap<String, List<String>> contra;
+    private String code;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,9 +74,11 @@ public class DrugDetailsActivity extends AppCompatActivity implements RxNormHand
 
         names = new ArrayList<>(Arrays.asList(getString(R.string.tab_contra), getString(R.string.tab_advice)
                 , getString(R.string.tab_alt_names)));
+
         intent = getIntent();
         mainName = intent.getStringExtra("name").split(",")[0].trim();
         getSupportActionBar().setTitle(mainName);
+        code = intent.getStringExtra("drug_code");
 
 
         pager = (ViewPager) findViewById(R.id.pager);
@@ -78,9 +89,7 @@ public class DrugDetailsActivity extends AppCompatActivity implements RxNormHand
         tabs.addTab(tabs.newTab().setText(getString(R.string.tab_alt_names)));
         tabs.setTabTextColors(ContextCompat.getColor(this, R.color.icons), ContextCompat.getColor(this, R.color.icons));
 
-
-        new RxNormTask(this).execute(mainName);
-
+        checkCalls();
     }
 
     @Override
@@ -142,6 +151,7 @@ public class DrugDetailsActivity extends AppCompatActivity implements RxNormHand
     @Override
     public void onRxNormResult(List<String> rxcui) {
         String queryParam = "";
+
         if (rxcui.size() == 1) {
             new InteractionsApiTask(this).execute(rxcui.get(0));
         } else {
@@ -172,16 +182,59 @@ public class DrugDetailsActivity extends AppCompatActivity implements RxNormHand
 
     @Override
     public void openFdaResult(LinkedHashMap<String, List<String>> fda) {
-        adapter = new DrugViewPagerAdapter(getSupportFragmentManager(), names, 3, contraDrugs, fda.get("contraindications"),
-                fda.get("advices"), intent.getStringExtra("name").split(","));
-        pager.setAdapter(adapter);
-        tabs.setupWithViewPager(pager);
-        pDialog.dismiss();
+        contra = fda;
+        new CacheResultsTask(this, this, code, fda, contraDrugs).execute();
     }
 
     @Override
     public void openFdaError() {
         Toast.makeText(this, getString(R.string.error_occurred), Toast.LENGTH_LONG).show();
         pDialog.dismiss();
+    }
+
+    @Override
+    public void onCacheResult(LinkedHashMap<String, List<String>> description) {
+        if (description.size() == 0) {
+            adapterNoCache = new DrugNoCacheViewPagerAdapter(getSupportFragmentManager(), names, 3, contraDrugs, contra.get("contraindications"),
+                    contra.get("advices"), intent.getStringExtra("name").split(","));
+            pager.setAdapter(adapterNoCache);
+            tabs.setupWithViewPager(pager);
+            pDialog.dismiss();
+        } else {
+            adapter = new DrugViewPagerAdapter(getSupportFragmentManager(), names, 3, description.get("drug_drug_contra"), description.get("contraindications"),
+                    description.get("advices"), intent.getStringExtra("name").split(","));
+            pager.setAdapter(adapter);
+            tabs.setupWithViewPager(pager);
+
+        }
+    }
+
+    @Override
+    public void onCacheError() {
+        Toast.makeText(this, getString(R.string.error_occurred), Toast.LENGTH_LONG).show();
+        pDialog.dismiss();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        new CacheResultsTask(this,this,code,contra,contraDrugs).execute();
+    }
+
+    public void checkCalls(){
+        ContraindicationAdapter ca = new ContraindicationAdapter(this);
+        AdviseAdapter aa = new AdviseAdapter(this);
+        ca.open();
+        String s = ca.getContraByDrugCode(code);
+        ca.close();
+
+        aa.open();
+        String a = aa.getAdviseByDrugCode(code);
+        aa.close();
+
+        if ((s == null || a == null) || (TextUtils.isEmpty(s) || TextUtils.isEmpty(s))) {
+            new RxNormTask(this).execute(mainName);
+        }else{
+            new CacheResultsTask(this,this,code,contra,contraDrugs).execute();
+        }
     }
 }

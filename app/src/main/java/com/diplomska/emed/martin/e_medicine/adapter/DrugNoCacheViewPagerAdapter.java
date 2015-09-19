@@ -6,29 +6,26 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.diplomska.emed.martin.e_medicine.fragments.AdvicesFragment;
-import com.diplomska.emed.martin.e_medicine.fragments.ContraindicationsFragment;
 import com.diplomska.emed.martin.e_medicine.fragments.AltNamesFragment;
+import com.diplomska.emed.martin.e_medicine.fragments.ContraindicationsFragment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 /**
- * Created by Martin on 9/5/2015.
+ * Created by Martin on 9/19/2015.
  */
-public class DrugViewPagerAdapter extends FragmentStatePagerAdapter {
-
+public class DrugNoCacheViewPagerAdapter extends FragmentStatePagerAdapter {
     private ArrayList<String> names;
     private int numOfTabs;
     private List<String> contra;
     private List<String> adv;
     private String[] altNames;
-    private List<String> drugDrug;
+    private LinkedHashMap<String, String> drugDrug;
 
-    public DrugViewPagerAdapter(FragmentManager fm, ArrayList<String> names, int numOfTabs,
-                                List<String> drugDrug, List<String> contra, List<String> adv, String[] altNames) {
+    public DrugNoCacheViewPagerAdapter(FragmentManager fm, ArrayList<String> names, int numOfTabs,
+                                LinkedHashMap<String, String> drugDrug, List<String> contra, List<String> adv, String[] altNames) {
         super(fm);
         this.names = names;
         this.numOfTabs = numOfTabs;
@@ -78,18 +75,10 @@ public class DrugViewPagerAdapter extends FragmentStatePagerAdapter {
         return numOfTabs;
     }
 
-    private String formatDrugInteractions(List<String> drugs){
+    private String formatDrugInteractions(LinkedHashMap<String,String> drugs){
         String formatted="";
-        String s = drugs.get(0);
-        String[] ss = s.split("XX");
-        LinkedHashMap<String,String> tmp = new LinkedHashMap<>();
-        for (int i = 0; i < ss.length; i++) {
-            String[] sss = ss[i].split("\\-");
-            tmp.put(sss[0],sss[1].replace("XX",""));
-        }
-
-        for(Map.Entry<String,String> entry : tmp.entrySet()){
-            formatted += entry.getKey()+" - "+entry.getValue()+"\n\n";
+        for(Map.Entry<String,String> entry : drugs.entrySet()){
+            formatted+=entry.getKey()+" - "+entry.getValue()+"\n\n";
         }
         return formatted;
     }

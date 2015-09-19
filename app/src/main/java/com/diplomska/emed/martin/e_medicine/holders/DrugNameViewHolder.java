@@ -68,6 +68,7 @@ public class DrugNameViewHolder extends RecyclerView.ViewHolder implements View.
                 String name = genericName.getText().toString();
 
                 Intent details = new Intent(ctx, DrugDetailsActivity.class);
+                details.putExtra("drug_code",code);
                 details.putExtra("name", name);
                 details.putExtra("contraindications", contraindications);
                 details.putExtra("advices", advices);

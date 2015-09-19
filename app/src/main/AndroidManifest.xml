@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.diplomska.emed.martin.e_medicine">
 
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -43,6 +43,7 @@
                 <action android:name="android.intent.action.SEARCH" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
@@ -55,29 +56,30 @@
         </activity>
 
         <!-- search activity -->
-       <!-- <activity
-            android:name=".SearchResultsActivity"
-            android:label="@string/search_result"
-            android:launchMode="singleTop"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.MyCompatTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+        <!-- <activity
+             android:name=".SearchResultsActivity"
+             android:label="@string/search_result"
+             android:launchMode="singleTop"
+             android:parentActivityName=".MainActivity"
+             android:screenOrientation="portrait"
+             android:theme="@style/Theme.MyCompatTheme">
+             <intent-filter>
+                 <action android:name="android.intent.action.SEARCH" />
+                 <category android:name="android.intent.category.DEFAULT" />
+             </intent-filter>
 
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>-->
+             <meta-data
+                 android:name="android.app.searchable"
+                 android:resource="@xml/searchable" />
+             <meta-data
+                 android:name="android.support.PARENT_ACTIVITY"
+                 android:value=".MainActivity" />
+         </activity>-->
 
         <!-- Drug details activity -->
         <activity
             android:name=".DrugDetailsActivity"
+            android:configChanges="orientation"
             android:label="@string/drug_details"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Theme.MyCompatTheme">
@@ -86,14 +88,15 @@
                 android:value=".MainActivity" />
         </activity>
 
-        <activity android:name=".PillIdActivity"
+        <activity
+            android:name=".PillIdActivity"
             android:label="@string/pill_identify"
-            android:theme="@style/Theme.MyCompatTheme"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity">
+            android:theme="@style/Theme.MyCompatTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".MainActivity" />
         </activity>
 
 

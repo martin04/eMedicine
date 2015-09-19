@@ -21,6 +21,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Martin on 06-Jul-15.
@@ -38,7 +39,7 @@ public class SearchTask extends AsyncTask<String, Void, List<Drug>> {
 
     @Override
     protected void onPreExecute() {
-        //drug=new DrugAdapter(ctx);
+        drug = new DrugAdapter(ctx);
         listener.onTaskStarted();
     }
 
@@ -49,10 +50,16 @@ public class SearchTask extends AsyncTask<String, Void, List<Drug>> {
             List<Drug> result=drug.getDrugByGenName(params[0]);
             drug.close();
             return result;*/
-            String url="http://dailymed.nlm.nih.gov/dailymed/services/v2/drugnames.json?drug_name="+URLEncoder.encode(params[0],"UTF-8")+"&pagesize=50&page=1";
-            return jsonParser(EmedUtils.readJsonFeed(url));
-        }
-        catch (Exception ex){
+            String url = "http://dailymed.nlm.nih.gov/dailymed/services/v2/drugnames.json?drug_name=" + URLEncoder.encode(params[0], "UTF-8") + "&pagesize=50&page=1";
+            List<Drug> drugs = jsonParser(EmedUtils.readJsonFeed(url));
+            drug.open();
+            for (Drug d : drugs) {
+                drug.insert(d);
+            }
+            drug.close();
+
+            return drugs;
+        } catch (Exception ex) {
             ex.printStackTrace();
             return null;
         }
@@ -62,9 +69,9 @@ public class SearchTask extends AsyncTask<String, Void, List<Drug>> {
     protected void onPostExecute(List<Drug> drugs) {
         if (drugs != null && drugs.size() > 0) {
             listener.onTaskCompleted(drugs);
-        }else if(drugs != null && drugs.size()==0){
+        } else if (drugs != null && drugs.size() == 0) {
             listener.onTaskCompleted(drugs);
-        }else{
+        } else {
             listener.onTaskNotCompleted();
         }
     }
@@ -76,8 +83,9 @@ public class SearchTask extends AsyncTask<String, Void, List<Drug>> {
             for (int i = 0; i < arr.length(); i++) {
                 JSONObject obj = arr.getJSONObject(i);
                 Drug d = new Drug();
-                d.setCode("");
-                if(!obj.getString("drug_name").equalsIgnoreCase("-")) {
+                Random rnd = new Random();
+                d.setCode(String.format("%d", rnd.nextInt(999999)));
+                if (!obj.getString("drug_name").equalsIgnoreCase("-")) {
                     if (obj.getString("name_type").equalsIgnoreCase("G")) {
                         d.setGeneric_name(obj.getString("drug_name").replace("(", "").replace(")", "").replace("-", " "));
                         d.setLatin_name("");
@@ -85,7 +93,7 @@ public class SearchTask extends AsyncTask<String, Void, List<Drug>> {
                         d.setGeneric_name("");
                         d.setLatin_name(obj.getString("drug_name").replace("(", "").replace(")", "").replace("-", " "));
                     }
-                }else{
+                } else {
                     d.setGeneric_name("Name not available");
                     d.setLatin_name("Name not available");
                 }
