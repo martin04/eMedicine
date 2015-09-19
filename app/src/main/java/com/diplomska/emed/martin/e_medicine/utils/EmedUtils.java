@@ -1,8 +1,11 @@
 package com.diplomska.emed.martin.e_medicine.utils;
 
+import android.content.Context;
+
 import org.apache.commons.io.IOUtils;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -26,6 +29,15 @@ public class EmedUtils {
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;
+        }
+    }
+    //Function for checking if the database exists
+    public static boolean checkDB(Context ctx) {
+        File db = ctx.getApplicationContext().getDatabasePath("emedicine.db");
+        if (!db.exists()) {
+            return false;
+        } else {
+            return true;
         }
     }
 }

@@ -37,7 +37,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     //creating table DRUGS
     static final String createDrugs = String.format("create table %s(%s integer primary key autoincrement, " +
-                    "%s text not null unique, %s text not null, %s text not null, %s text not null, %s text not null);", TABLE_DRUGS, COLUMN_DRUG_ID,
+                    "%s text not null unique, %s text not null, %s text not null, %s text null, %s text null);", TABLE_DRUGS, COLUMN_DRUG_ID,
             COLUMN_CODE, COLUMN_LATIN_NAME, COLUMN_GENERIC_NAME, COLUMN_COLOR, COLUMN_SHAPE);
 
     //creatig table CONTRAIND.
