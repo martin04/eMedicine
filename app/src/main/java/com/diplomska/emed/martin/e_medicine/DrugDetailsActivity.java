@@ -59,6 +59,7 @@ public class DrugDetailsActivity extends AppCompatActivity implements RxNormHand
     private LinkedHashMap<String, String> contraDrugs;
     private LinkedHashMap<String, List<String>> contra;
     private String code;
+    private boolean fromPillId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,7 +80,7 @@ public class DrugDetailsActivity extends AppCompatActivity implements RxNormHand
         mainName = intent.getStringExtra("name").split(",")[0].trim();
         getSupportActionBar().setTitle(mainName);
         code = intent.getStringExtra("drug_code");
-
+        fromPillId = getIntent().getBooleanExtra("from_pill_id", false);
 
         pager = (ViewPager) findViewById(R.id.pager);
 
@@ -183,7 +184,16 @@ public class DrugDetailsActivity extends AppCompatActivity implements RxNormHand
     @Override
     public void openFdaResult(LinkedHashMap<String, List<String>> fda) {
         contra = fda;
-        new CacheResultsTask(this, this, code, fda, contraDrugs).execute();
+        if(fromPillId){
+            adapterNoCache = new DrugNoCacheViewPagerAdapter(getSupportFragmentManager(), names, 3, contraDrugs, contra.get("contraindications"),
+                    contra.get("advices"), intent.getStringExtra("name").split(","));
+            pager.setAdapter(adapterNoCache);
+            tabs.setupWithViewPager(pager);
+            pDialog.dismiss();
+        }else{
+            new CacheResultsTask(this, this, code, fda, contraDrugs).execute();
+        }
+
     }
 
     @Override
@@ -217,10 +227,10 @@ public class DrugDetailsActivity extends AppCompatActivity implements RxNormHand
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        new CacheResultsTask(this,this,code,contra,contraDrugs).execute();
+        new CacheResultsTask(this, this, code, contra, contraDrugs).execute();
     }
 
-    public void checkCalls(){
+    public void checkCalls() {
         ContraindicationAdapter ca = new ContraindicationAdapter(this);
         AdviseAdapter aa = new AdviseAdapter(this);
         ca.open();
@@ -231,10 +241,13 @@ public class DrugDetailsActivity extends AppCompatActivity implements RxNormHand
         String a = aa.getAdviseByDrugCode(code);
         aa.close();
 
-        if ((s == null || a == null) || (TextUtils.isEmpty(s) || TextUtils.isEmpty(s))) {
+        if (fromPillId) {
+            onRxNormStarted();
+            new InteractionsApiTask(this).execute(code);
+        } else if ((s == null || a == null) || (TextUtils.isEmpty(s) || TextUtils.isEmpty(s))) {
             new RxNormTask(this).execute(mainName);
-        }else{
-            new CacheResultsTask(this,this,code,contra,contraDrugs).execute();
+        } else {
+            new CacheResultsTask(this, this, code, contra, contraDrugs).execute();
         }
     }
 }

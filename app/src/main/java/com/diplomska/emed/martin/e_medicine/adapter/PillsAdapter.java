@@ -2,12 +2,14 @@ package com.diplomska.emed.martin.e_medicine.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.service.notification.NotificationListenerService;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.diplomska.emed.martin.e_medicine.DrugDetailsActivity;
 import com.diplomska.emed.martin.e_medicine.R;
@@ -17,6 +19,7 @@ import com.diplomska.emed.martin.e_medicine.models.PillModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Martin on 8/28/2015.
@@ -56,8 +59,22 @@ public class PillsAdapter extends RecyclerView.Adapter<PillsViewHolder> implemen
     @Override
     public void onDetailsClicked(Context ctx, int position) {
         PillModel pill = pills.get(position);
+        Random rnd = new Random();
+
         Intent intent = new Intent(ctx, DrugDetailsActivity.class);
-        intent.putExtra("rxcui",pill.getRxcui());
-        ctx.startActivity(intent);
+        //intent.putExtra("rxcui", pill.getRxcui());
+        intent.putExtra("drug_code",String.format("%d",pill.getRxcui()));
+        intent.putExtra("from_pill_id", true);
+
+        if(pill.getName().equalsIgnoreCase("Unknown") || pill.getName().contains("[")){
+            Toast.makeText(ctx,ctx.getString(R.string.no_details_available),Toast.LENGTH_LONG).show();
+        }else if(pill.getName().split("/").length>1){
+            intent.putExtra("name", pill.getName().split("/")[0]);
+            ctx.startActivity(intent);
+        }else {
+            intent.putExtra("name", pill.getName());
+            ctx.startActivity(intent);
+        }
+
     }
 }
