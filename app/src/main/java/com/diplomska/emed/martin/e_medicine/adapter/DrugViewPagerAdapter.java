@@ -57,7 +57,7 @@ public class DrugViewPagerAdapter extends FragmentStatePagerAdapter {
                 return cf;
             case 1:
                 Bundle ba = new Bundle();
-                String[] tmpA = new String[3];
+                String[] tmpA = new String[4];
                 ba.putStringArray("advices", adv.toArray(tmpA));
                 AdvicesFragment af = new AdvicesFragment();
                 af.setArguments(ba);

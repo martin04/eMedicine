@@ -1,9 +1,7 @@
 package com.diplomska.emed.martin.e_medicine.adapter;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.AlarmClock;
 import android.support.v7.widget.RecyclerView;
@@ -24,9 +22,6 @@ import com.diplomska.emed.martin.e_medicine.holders.DrugNameViewHolder;
 import com.diplomska.emed.martin.e_medicine.interfaces.onAlarmCreated;
 import com.diplomska.emed.martin.e_medicine.models.Drug;
 
-import org.w3c.dom.Text;
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;

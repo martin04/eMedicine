@@ -22,6 +22,7 @@ public class AdvicesFragment extends Fragment {
     private TextView precautions;
     private TextView warnings;
     private TextView generalPrecautions;
+    private TextView indicationsAndUsage;
 
     public AdvicesFragment() {
     }
@@ -34,12 +35,14 @@ public class AdvicesFragment extends Fragment {
         precautions = (TextView) v.findViewById(R.id.txtPrecautions);
         warnings = (TextView) v.findViewById(R.id.txtWarnings);
         generalPrecautions = (TextView) v.findViewById(R.id.txtGenralP);
+        indicationsAndUsage = (TextView) v.findViewById(R.id.txtIndUsage);
 
         String[] adv = getArguments().getStringArray("advices");
         if (adv != null) {
             precautions.setText((TextUtils.isEmpty(adv[0]) || adv[0] == null) ? "" : adv[0].substring(11));
             warnings.setText((TextUtils.isEmpty(adv[1]) || adv[1] == null) ? "" : adv[1].substring(9));
             generalPrecautions.setText((TextUtils.isEmpty(adv[2]) || adv[2] == null) ? "" : adv[2].substring(8));
+            indicationsAndUsage.setText((TextUtils.isEmpty(adv[3]) || adv[3] == null) ? "" : adv[3]);
         }
 
         return v;

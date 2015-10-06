@@ -94,6 +94,12 @@ public class OpenFdaTask extends AsyncTask<String, Void, LinkedHashMap<String, L
                 }else{
                     contraindications.add("");
                 }
+                if(moreRecent.has("overdosage")) {
+                    JSONArray adverseReactions = moreRecent.getJSONArray("overdosage");
+                    contraindications.add(adverseReactions.getString(0));
+                }else{
+                    contraindications.add("");
+                }
 
                 fda.put("contraindications", contraindications);
 
@@ -110,6 +116,11 @@ public class OpenFdaTask extends AsyncTask<String, Void, LinkedHashMap<String, L
                     advices.add("");
                 }if(moreRecent.has("general_precautions")){
                     JSONArray generalPrecautions = moreRecent.getJSONArray("general_precautions");
+                    advices.add(generalPrecautions.getString(0));
+                }else{
+                    advices.add("");
+                }if(moreRecent.has("indications_and_usage")){
+                    JSONArray generalPrecautions = moreRecent.getJSONArray("indications_and_usage");
                     advices.add(generalPrecautions.getString(0));
                 }else{
                     advices.add("");

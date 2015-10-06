@@ -192,6 +192,7 @@ public class DrugDetailsActivity extends AppCompatActivity implements RxNormHand
             pDialog.dismiss();
         }else{
             new CacheResultsTask(this, this, code, fda, contraDrugs).execute();
+            pDialog.dismiss();
         }
 
     }
@@ -215,7 +216,6 @@ public class DrugDetailsActivity extends AppCompatActivity implements RxNormHand
                     description.get("advices"), intent.getStringExtra("name").split(","));
             pager.setAdapter(adapter);
             tabs.setupWithViewPager(pager);
-
         }
     }
 
