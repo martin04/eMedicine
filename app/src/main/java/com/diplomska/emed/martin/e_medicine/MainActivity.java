@@ -167,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted, 
             drugView.setAdapter(adapter);
             dataFilled = true;
         } else {
+            dataFilled = false;
             drugView.setVisibility(View.GONE);
             txtNoResults.setVisibility(View.VISIBLE);
         }
@@ -175,6 +176,7 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted, 
 
     @Override
     public void onTaskNotCompleted() {
+        dataFilled = false;
         Toast.makeText(MainActivity.this, getString(R.string.error_occurred), Toast.LENGTH_SHORT).show();
         pdLoading.cancel();
     }
