@@ -18,6 +18,7 @@
     <dimen name="right_margin">30dp</dimen>
     <dimen name="top_margin">10dp</dimen>
     <dimen name="bottom_margin">9dp</dimen>
+    <dimen name="scroll_bottom_margin">60dp</dimen>
 
     <!-- text sizes -->
     <dimen name="details_btn_text">16sp</dimen>

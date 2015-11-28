@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_background">
+    android:background="@drawable/bckg_btn_gradient">
 
     <ImageView
         android:id="@+id/imgActions"
@@ -15,13 +15,14 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/imgActions">
+        android:layout_below="@+id/imgActions"
+        android:background="@drawable/bckg_btn_gradient"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:background="@color/primary_background">
+            android:background="@drawable/bckg_btn_gradient">
 
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/cvDrugs"
@@ -59,6 +60,7 @@
                 android:layout_below="@+id/cvDrugs"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="35dp"
+                android:layout_marginBottom="@dimen/scroll_bottom_margin"
                 card_view:cardBackgroundColor="@color/primary"
                 card_view:cardCornerRadius="4dp"
                 card_view:cardElevation="7dp">

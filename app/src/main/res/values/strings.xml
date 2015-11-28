@@ -144,6 +144,7 @@
     <!-- other strings -->
     <string name="name_not_available">Name not available</string>
     <string name="no_details_available">No details available at this moment.</string>
+    <string name="no_alarm_available">Cannot create alarm for this drug.</string>
     <string name="error_occurred">An error occurred, please try again.</string>
     <string name="drug_drug_ind">&#183;Drug-drug indications:</string>
     <string name="other_ind">&#183;Other indications:</string>
